@@ -4,7 +4,7 @@
 1. Cloning this project
 
 ```shell
-git clone <repo-url>
+git clone https://github.com/chaddaess/mentimeter-front
 ```
 
 2. Navigate into the project directory:
