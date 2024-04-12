@@ -1,7 +1,7 @@
 # React + TypeScript + Vite
 
 
-1. Cloning this project
+1. Clone this project
 
 ```shell
 git clone https://github.com/chaddaess/mentimeter-front
@@ -25,3 +25,19 @@ npm run dev
 
 ````
 
+6. Routing system 
+
+To define routes for the different pages and navigate between them effectively , we'll use ``react-router-dom``.
+To do that we'll wrap our app inside a 
+``
+<BrowserRouter> </BrowserRouter>
+``
+component. Then inside the 
+``
+<Routes> </Routes>
+``
+component , we will specify our pages as well as their routes (path) and content (element) like so 
+````js
+<Route path="path/to/page" element={<ComponentName/>}></Route>
+```` 
+A react router tutorial I have found helpful : https://www.youtube.com/watch?v=59IXY5IDrBA&t=14s&ab_channel=freeCodeCamp.org
