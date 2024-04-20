@@ -1,8 +1,7 @@
-
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from "./Components/Home.tsx";
 import Test from "./Components/Test.tsx";
-import Authentification from './Components/Authentification.js';
+import Authentification from './Components/Authentification.tsx';
 import React from "react";
 
 
