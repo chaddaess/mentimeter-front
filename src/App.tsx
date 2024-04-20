@@ -12,7 +12,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home/>}></Route>
                 <Route path="test" element={<Test/>}></Route>
-                <Route path="auth" element={<Authentification signIn={signIn} toggle={toggle} />}></Route>
+                <Route path="authentication" element={<Authentification signIn={signIn} toggle={toggle} />}></Route>
             </Routes>
         </BrowserRouter>
         )

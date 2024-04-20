@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import * as Components from './Component.tsx';
 
 interface AuthentificationProps {
@@ -7,9 +7,47 @@ interface AuthentificationProps {
 }
 
 const Authentification: FC<AuthentificationProps> = ({ signIn, toggle }) => {
+  const [registrationData, setRegistrationData] = useState(null);
+  const [loginData, setLoginData] = useState(null);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    const fetchRegistrationData = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/authentication/register');
+        if (!response.ok) {
+          throw new Error('Registration failed');
+        }
+        const jsonData = await response.json();
+        setRegistrationData(jsonData);
+      } catch (error:any) {
+        setError(error);
+      }
+    };
+
+    const fetchLoginData = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/authentication/login');
+        if (!response.ok) {
+          throw new Error('Login failed');
+        }
+        const jsonData = await response.json();
+        setLoginData(jsonData);
+      } catch (error:any) {
+        setError(error);
+      }
+    };
+
+    fetchRegistrationData();
+    fetchLoginData();
+  }, []);
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
   return (
     <Components.Container>
-      <Components.SignUpContainer signinIn={signIn}>
+      <Components.SignUpContainer signinin={signIn}>
         <Components.Form>
           <Components.Title>Create Account</Components.Title>
           <Components.Input type='text' placeholder='Name' />
@@ -19,7 +57,7 @@ const Authentification: FC<AuthentificationProps> = ({ signIn, toggle }) => {
         </Components.Form>
       </Components.SignUpContainer>
 
-      <Components.SignInContainer signinIn={signIn}>
+      <Components.SignInContainer signinin={signIn}>
         <Components.Form>
           <Components.Title>Sign in</Components.Title>
           <Components.Input type='email' placeholder='Email' />
@@ -29,9 +67,9 @@ const Authentification: FC<AuthentificationProps> = ({ signIn, toggle }) => {
         </Components.Form>
       </Components.SignInContainer>
 
-      <Components.OverlayContainer signinIn={signIn}>
-        <Components.Overlay signinIn={signIn}>
-          <Components.LeftOverlayPanel signinIn={signIn}>
+      <Components.OverlayContainer signinin={signIn}>
+        <Components.Overlay signinin={signIn}>
+          <Components.LeftOverlayPanel signinin={signIn}>
             <Components.Title>Welcome Back!</Components.Title>
             <Components.Paragraph>
               To keep connected with us please login
@@ -41,7 +79,7 @@ const Authentification: FC<AuthentificationProps> = ({ signIn, toggle }) => {
             </Components.GhostButton>
           </Components.LeftOverlayPanel>
 
-          <Components.RightOverlayPanel signinIn={signIn}>
+          <Components.RightOverlayPanel signinin={signIn}>
             <Components.Title>Hey, Friend!</Components.Title>
             <Components.Paragraph>
               Don't have an account ? sign up Now !!!
