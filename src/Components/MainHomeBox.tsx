@@ -1,5 +1,6 @@
 import { FaPlusCircle } from "react-icons/fa";
 import QuizBox from "./QuizBox.tsx";
+import CreateQuizPopup from "./CreateQuizPopup.tsx";
 export default function MainHomeBox(props:any){
 
     const mainHomeBoxStyle={
@@ -15,13 +16,7 @@ export default function MainHomeBox(props:any){
         // border:'1px solid magenta',
         justifyContent:'flex-start'
     }
-    const buttonStyle={
-        display: 'flex',
-        alignItems: 'center',
-        height:"4em",
-        borderRadius:"50px ",
-        fontSize:"1.1rem"
-    }
+
 
     const quizBoxes = [];
     for (let i = 0; i < 5; i++) {
@@ -40,12 +35,10 @@ export default function MainHomeBox(props:any){
                     </h1>
                 </div>
                 <div style={box}>
-                    <button style={buttonStyle}>
-                        <FaPlusCircle style={{marginRight:"1em"}}/>New Quiz
-                    </button>
+                    <CreateQuizPopup/>
                 </div>
                 <div style={box}>
-                    <h2 style={{color:"#F5DD61",fontSize:"2.5rem"}}>Dive into your old quizzes</h2>
+                    <h2 style={{color:"#F5DD61",fontSize:"2.5rem"}}>Revisit your old quizzes</h2>
                 </div>
                 <div style={{...box, flexDirection: 'row', flexWrap: 'wrap'}}>
                     {quizBoxes}

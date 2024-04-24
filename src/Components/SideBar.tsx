@@ -1,5 +1,4 @@
 import Logo from "./Logo.tsx";
-
 export default function sideBar(){
     const sideBarStyle={
         display:'flex',
