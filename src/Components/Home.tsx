@@ -16,13 +16,15 @@ function Home() {
         flexDirection: 'column',
         paddingLeft: '23%', // Adjust based on the width of the sidebar
     };
+    const userinfo=localStorage.getItem('loginInfo');
+    const   username=userinfo!=null?userinfo['username']:"stranger"
 
     return (
         <>
             <div className="container" style={containerStyle}>
                 <SideBar />
                 <div className="main-content" style={mainContentStyle}>
-                    <MainHomeBox name="chadda" />
+                    <MainHomeBox name={username}/>
                 </div>
             </div>
         </>

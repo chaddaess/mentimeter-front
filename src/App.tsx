@@ -6,6 +6,7 @@ import Home from "./Components/Home.tsx";
 import Test from "./Components/Test.tsx";
 
 import './App.css'
+import PrivateRoutes from "./Components/PrivateRoutes.tsx";
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -13,7 +14,9 @@ function App() {
   return (
     <BrowserRouter>
         <Routes>
-            <Route path="/" element={<Home/>}></Route>
+            <Route element={<PrivateRoutes/>}>
+                <Route path="/" element={<Home/>}></Route>
+            </Route>
             <Route path="test" element={<Test/>}></Route>
         </Routes>
 
