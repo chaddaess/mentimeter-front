@@ -12,22 +12,24 @@ const Authentification: FC<AuthentificationProps> = ({ signIn, toggle }) => {
     const errorStyle={
         //Todo:style error messages
     }
-    const [loginInputDetails,setLoginInputDetails] = useState([]);
+    const [inputDetails,setInputDetails] = useState([]);
     const [error,setError] = useState([]);
     const navigate=useNavigate()
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-        setLoginInputDetails(prevState => ({
+        setInputDetails(prevState => ({
             ...prevState,
             [name]: value
-        }));
+            }));
+
+
     };
-    const handleFormSubmit = (event) => {
-        console.log(loginInputDetails)
+    const handleFormSubmit = (event,action) => {
         event.preventDefault();
-            fetch('http://localhost:3000/authentication/login', {
+        console.log(inputDetails)
+            fetch(`http://localhost:3000/authentication/${action}`, {
                 method: "POST",
-                body: JSON.stringify(loginInputDetails),
+                body: JSON.stringify(inputDetails),
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
                 },
@@ -53,20 +55,19 @@ const Authentification: FC<AuthentificationProps> = ({ signIn, toggle }) => {
           {!localStorage.getItem('loginInfo')?
               <Components.Container>
                   <Components.SignUpContainer signinin={signIn}>
-                      <Components.Form>
+                      <Components.Form onSubmit={(event)=>handleFormSubmit(event,'register')}>
                           <Components.Title>Create Account</Components.Title>
-                          <Components.Input type='text' placeholder='Name'/>
-                          <Components.Input type='email' placeholder='Email'/>
-                          <Components.Input type='password' placeholder='Password'/>
+                          <Components.Input name="email" type='email' placeholder='Email' onChange={handleInputChange}/>
+                          <Components.Input  name="password"  type='password' placeholder='Password' onChange={handleInputChange}/>
                           <Components.Button>Sign Up</Components.Button>
                       </Components.Form>
                   </Components.SignUpContainer>
 
                   <Components.SignInContainer signinin={signIn}>
-                      <Components.Form onSubmit={handleFormSubmit}>
+                      <Components.Form onSubmit={(event)=>handleFormSubmit(event,'login')}>
                           <Components.Title>Sign in</Components.Title>
                           <Components.Input name="email" type='email' placeholder='Email' onChange={handleInputChange}/>
-                          <Components.Input name="password" type='password' placeholder='Password' onChange={handleInputChange}/>
+                          <Components.Input name="password" type='password' placeholder='Password'  onChange={handleInputChange}/>
                           {/*<Components.Anchor href='#'>Forgot your password?</Components.Anchor>*/}
                           <Components.Button>Sigin In</Components.Button>
                           {error &&
