@@ -1,5 +1,7 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import * as Components from './Component.tsx';
+import {Navigate, useNavigate} from "react-router";
+
 
 interface AuthentificationProps {
   signIn: boolean;
@@ -7,90 +9,105 @@ interface AuthentificationProps {
 }
 
 const Authentification: FC<AuthentificationProps> = ({ signIn, toggle }) => {
-  const [registrationData, setRegistrationData] = useState(null);
-  const [loginData, setLoginData] = useState(null);
-  const [error, setError] = useState<Error | null>(null);
+    const errorStyle={
+        //Todo:style error messages
+    }
+    const [inputDetails,setInputDetails] = useState([]);
+    const [error,setError] = useState([]);
+    const navigate=useNavigate()
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setInputDetails(prevState => ({
+            ...prevState,
+            [name]: value
+            }));
 
-  useEffect(() => {
-    const fetchRegistrationData = async () => {
-      try {
-        const response = await fetch('http://localhost:3000/authentication/register');
-        if (!response.ok) {
-          throw new Error('Registration failed');
-        }
-        const jsonData = await response.json();
-        setRegistrationData(jsonData);
-      } catch (error:any) {
-        setError(error);
-      }
+
     };
+    const handleFormSubmit = (event,action) => {
+        event.preventDefault();
+        console.log(inputDetails)
+            fetch(`http://localhost:3000/authentication/${action}`, {
+                method: "POST",
+                body: JSON.stringify(inputDetails),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            })
+                .then((res) => {
+                    return res.json();
+                })
+                .then((data) => {
+                    console.log("data : ", data);
+                    if (!data['statusCode']) {
+                        localStorage.setItem('loginInfo', JSON.stringify(data));
+                        navigate('/')
+                    } else {
+                        const errorMessages = Array.isArray(data.message) ? data.message : [data.message];
+                        setError(errorMessages)
+                        console.log("errors:", errorMessages)
 
-    const fetchLoginData = async () => {
-      try {
-        const response = await fetch('http://localhost:3000/authentication/login');
-        if (!response.ok) {
-          throw new Error('Login failed');
-        }
-        const jsonData = await response.json();
-        setLoginData(jsonData);
-      } catch (error:any) {
-        setError(error);
-      }
-    };
-
-    fetchRegistrationData();
-    fetchLoginData();
-  }, []);
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+                    }
+                });
+    }
   return (
-    <Components.Container>
-      <Components.SignUpContainer signinin={signIn}>
-        <Components.Form>
-          <Components.Title>Create Account</Components.Title>
-          <Components.Input type='text' placeholder='Name' />
-          <Components.Input type='email' placeholder='Email' />
-          <Components.Input type='password' placeholder='Password' />
-          <Components.Button>Sign Up</Components.Button>
-        </Components.Form>
-      </Components.SignUpContainer>
+      <>
+          {!localStorage.getItem('loginInfo')?
+              <Components.Container>
+                  <Components.SignUpContainer signinin={signIn}>
+                      <Components.Form onSubmit={(event)=>handleFormSubmit(event,'register')}>
+                          <Components.Title>Create Account</Components.Title>
+                          <Components.Input name="email" type='email' placeholder='Email' onChange={handleInputChange}/>
+                          <Components.Input  name="password"  type='password' placeholder='Password' onChange={handleInputChange}/>
+                          <Components.Button>Sign Up</Components.Button>
+                      </Components.Form>
+                  </Components.SignUpContainer>
 
-      <Components.SignInContainer signinin={signIn}>
-        <Components.Form>
-          <Components.Title>Sign in</Components.Title>
-          <Components.Input type='email' placeholder='Email' />
-          <Components.Input type='password' placeholder='Password' />
-          <Components.Anchor href='#'>Forgot your password?</Components.Anchor>
-          <Components.Button>Sigin In</Components.Button>
-        </Components.Form>
-      </Components.SignInContainer>
+                  <Components.SignInContainer signinin={signIn}>
+                      <Components.Form onSubmit={(event)=>handleFormSubmit(event,'login')}>
+                          <Components.Title>Sign in</Components.Title>
+                          <Components.Input name="email" type='email' placeholder='Email' onChange={handleInputChange}/>
+                          <Components.Input name="password" type='password' placeholder='Password'  onChange={handleInputChange}/>
+                          {/*<Components.Anchor href='#'>Forgot your password?</Components.Anchor>*/}
+                          <Components.Button>Sigin In</Components.Button>
+                          {error &&
+                          <Components.Paragraph>
+                                      <ul style={errorStyle}>
+                                          {error[0]}
+                                      </ul>
 
-      <Components.OverlayContainer signinin={signIn}>
-        <Components.Overlay signinin={signIn}>
-          <Components.LeftOverlayPanel signinin={signIn}>
-            <Components.Title>Welcome Back!</Components.Title>
-            <Components.Paragraph>
-              To keep connected with us please login
-            </Components.Paragraph>
-            <Components.GhostButton onClick={() => toggle(true)}>
-              Sign In
-            </Components.GhostButton>
-          </Components.LeftOverlayPanel>
+                          </Components.Paragraph>
+                          }
+                      </Components.Form>
+                  </Components.SignInContainer>
 
-          <Components.RightOverlayPanel signinin={signIn}>
-            <Components.Title>Hey, Friend!</Components.Title>
-            <Components.Paragraph>
-              Don't have an account ? sign up Now !!!
-            </Components.Paragraph>
-            <Components.GhostButton onClick={() => toggle(false)}>
-              Sigin Up
-            </Components.GhostButton>
-          </Components.RightOverlayPanel>
-        </Components.Overlay>
-      </Components.OverlayContainer>
-    </Components.Container>
+                  <Components.OverlayContainer signinin={signIn}>
+                      <Components.Overlay signinin={signIn}>
+                          <Components.LeftOverlayPanel signinin={signIn}>
+                              <Components.Title>Welcome Back!</Components.Title>
+                              <Components.Paragraph>
+                                  To keep connected with us please login
+                              </Components.Paragraph>
+                              <Components.GhostButton onClick={() => toggle(true)}>
+                                  Sign In
+                              </Components.GhostButton>
+                          </Components.LeftOverlayPanel>
+
+                          <Components.RightOverlayPanel signinin={signIn}>
+                              <Components.Title>Hey, Friend!</Components.Title>
+                              <Components.Paragraph>
+                                  Don't have an account ? sign up Now !!!
+                              </Components.Paragraph>
+                              <Components.GhostButton onClick={() => toggle(false)}>
+                                  Sigin Up
+                              </Components.GhostButton>
+                          </Components.RightOverlayPanel>
+                      </Components.Overlay>
+                  </Components.OverlayContainer>
+              </Components.Container>
+              :<Navigate to='/'/>
+          }
+      </>
   );
 };
 

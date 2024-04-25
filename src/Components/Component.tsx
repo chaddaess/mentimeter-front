@@ -139,7 +139,7 @@ export const OverlayPanel = styled.div`
 `;
 
 interface OverlayPanelProps {
-  signinin: boolean;
+  signinin?: boolean;
 }
 
 export const LeftOverlayPanel = styled(OverlayPanel)<OverlayPanelProps>`
