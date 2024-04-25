@@ -10,14 +10,23 @@ const Authentification: FC<AuthentificationProps> = ({ signIn, toggle }) => {
     const errorStyle={
         //Todo:style error messages
     }
-    const [loginInfo,setLoginInfo] = useState([]);
+    const [loginInfo,setLoginInfo] = useState({'email':'','password':''});
+    const [loginInputDetails,setLoginInputDetails] = useState([]);
     const [error,setError] = useState([]);
-    const loginInputDetails={
-        "email":"laysuuuuuuun@gmail.com",
-        "password":"123456"
-    }
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setLoginInputDetails(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+    // const loginInputDetails={
+    //     "email":"laysuuuuuuun@gmail.com",
+    //     "password":"123456"
+    // }
 
-    const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleFormSubmit = (event) => {
+        console.log(loginInputDetails)
         event.preventDefault();
             fetch('http://localhost:3000/authentication/login', {
                 method: "POST",
@@ -36,8 +45,9 @@ const Authentification: FC<AuthentificationProps> = ({ signIn, toggle }) => {
                         console.log("success info ", loginInfo)
 
                     } else {
-                        setError(data['message'])
-                        console.log("errors:", data['message'])
+                        const errorMessages = Array.isArray(data.message) ? data.message : [data.message];
+                        setError(errorMessages)
+                        console.log("errors:", errorMessages)
 
                     }
                 });
@@ -59,16 +69,14 @@ const Authentification: FC<AuthentificationProps> = ({ signIn, toggle }) => {
               <Components.SignInContainer signinin={signIn}>
                   <Components.Form onSubmit={handleFormSubmit}>
                       <Components.Title>Sign in</Components.Title>
-                      <Components.Input type='email' placeholder='Email'/>
-                      <Components.Input type='password' placeholder='Password'/>
-                      <Components.Anchor href='#'>Forgot your password?</Components.Anchor>
+                      <Components.Input name="email" type='email' placeholder='Email' onChange={handleInputChange}/>
+                      <Components.Input name="password" type='password' placeholder='Password' onChange={handleInputChange}/>
+                      {/*<Components.Anchor href='#'>Forgot your password?</Components.Anchor>*/}
                       <Components.Button>Sigin In</Components.Button>
                       {error &&
                       <Components.Paragraph>
                                   <ul style={errorStyle}>
-                                      {error.map((err, index) => (
-                                          <li key={index}>{err}</li>
-                                      ))}
+                                      {error[0]}
                                   </ul>
 
                       </Components.Paragraph>
