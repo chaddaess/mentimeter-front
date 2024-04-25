@@ -1,6 +1,5 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import * as Components from './Component.tsx';
-import Test from "./Test.tsx";
 
 interface AuthentificationProps {
   signIn: boolean;
