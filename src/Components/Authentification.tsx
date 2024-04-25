@@ -12,7 +12,6 @@ const Authentification: FC<AuthentificationProps> = ({ signIn, toggle }) => {
     const errorStyle={
         //Todo:style error messages
     }
-    const [loginInfo, setLoginInfo] = useState({'email':'','password':''});
     const [loginInputDetails,setLoginInputDetails] = useState([]);
     const [error,setError] = useState([]);
     const navigate=useNavigate()
@@ -39,7 +38,6 @@ const Authentification: FC<AuthentificationProps> = ({ signIn, toggle }) => {
                 .then((data) => {
                     console.log("data : ", data);
                     if (!data['statusCode']) {
-                        console.log("success info ", loginInfo)
                         localStorage.setItem('loginInfo', JSON.stringify(data));
                         navigate('/')
                     } else {
