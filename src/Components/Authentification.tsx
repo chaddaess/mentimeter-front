@@ -1,5 +1,7 @@
 import { FC, useState } from 'react';
 import * as Components from './Component.tsx';
+import {Navigate, useNavigate} from "react-router";
+
 
 interface AuthentificationProps {
   signIn: boolean;
@@ -10,9 +12,10 @@ const Authentification: FC<AuthentificationProps> = ({ signIn, toggle }) => {
     const errorStyle={
         //Todo:style error messages
     }
-    const [loginInfo,setLoginInfo] = useState({'email':'','password':''});
+    const [loginInfo, setLoginInfo] = useState({'email':'','password':''});
     const [loginInputDetails,setLoginInputDetails] = useState([]);
     const [error,setError] = useState([]);
+    const navigate=useNavigate()
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setLoginInputDetails(prevState => ({
@@ -20,11 +23,6 @@ const Authentification: FC<AuthentificationProps> = ({ signIn, toggle }) => {
             [name]: value
         }));
     };
-    // const loginInputDetails={
-    //     "email":"laysuuuuuuun@gmail.com",
-    //     "password":"123456"
-    // }
-
     const handleFormSubmit = (event) => {
         console.log(loginInputDetails)
         event.preventDefault();
@@ -40,10 +38,10 @@ const Authentification: FC<AuthentificationProps> = ({ signIn, toggle }) => {
                 })
                 .then((data) => {
                     console.log("data : ", data);
-                    if (data['statusCode'] == 200) {
-                        setLoginInfo(data)
+                    if (!data['statusCode']) {
                         console.log("success info ", loginInfo)
-
+                        localStorage.setItem('loginInfo', JSON.stringify(data));
+                        navigate('/')
                     } else {
                         const errorMessages = Array.isArray(data.message) ? data.message : [data.message];
                         setError(errorMessages)
@@ -54,60 +52,62 @@ const Authentification: FC<AuthentificationProps> = ({ signIn, toggle }) => {
     }
   return (
       <>
+          {!localStorage.getItem('loginInfo')?
+              <Components.Container>
+                  <Components.SignUpContainer signinin={signIn}>
+                      <Components.Form>
+                          <Components.Title>Create Account</Components.Title>
+                          <Components.Input type='text' placeholder='Name'/>
+                          <Components.Input type='email' placeholder='Email'/>
+                          <Components.Input type='password' placeholder='Password'/>
+                          <Components.Button>Sign Up</Components.Button>
+                      </Components.Form>
+                  </Components.SignUpContainer>
 
-          <Components.Container>
-              <Components.SignUpContainer signinin={signIn}>
-                  <Components.Form>
-                      <Components.Title>Create Account</Components.Title>
-                      <Components.Input type='text' placeholder='Name'/>
-                      <Components.Input type='email' placeholder='Email'/>
-                      <Components.Input type='password' placeholder='Password'/>
-                      <Components.Button>Sign Up</Components.Button>
-                  </Components.Form>
-              </Components.SignUpContainer>
-
-              <Components.SignInContainer signinin={signIn}>
-                  <Components.Form onSubmit={handleFormSubmit}>
-                      <Components.Title>Sign in</Components.Title>
-                      <Components.Input name="email" type='email' placeholder='Email' onChange={handleInputChange}/>
-                      <Components.Input name="password" type='password' placeholder='Password' onChange={handleInputChange}/>
-                      {/*<Components.Anchor href='#'>Forgot your password?</Components.Anchor>*/}
-                      <Components.Button>Sigin In</Components.Button>
-                      {error &&
-                      <Components.Paragraph>
-                                  <ul style={errorStyle}>
-                                      {error[0]}
-                                  </ul>
-
-                      </Components.Paragraph>
-                      }
-                  </Components.Form>
-              </Components.SignInContainer>
-
-              <Components.OverlayContainer signinin={signIn}>
-                  <Components.Overlay signinin={signIn}>
-                      <Components.LeftOverlayPanel signinin={signIn}>
-                          <Components.Title>Welcome Back!</Components.Title>
+                  <Components.SignInContainer signinin={signIn}>
+                      <Components.Form onSubmit={handleFormSubmit}>
+                          <Components.Title>Sign in</Components.Title>
+                          <Components.Input name="email" type='email' placeholder='Email' onChange={handleInputChange}/>
+                          <Components.Input name="password" type='password' placeholder='Password' onChange={handleInputChange}/>
+                          {/*<Components.Anchor href='#'>Forgot your password?</Components.Anchor>*/}
+                          <Components.Button>Sigin In</Components.Button>
+                          {error &&
                           <Components.Paragraph>
-                              To keep connected with us please login
-                          </Components.Paragraph>
-                          <Components.GhostButton onClick={() => toggle(true)}>
-                              Sign In
-                          </Components.GhostButton>
-                      </Components.LeftOverlayPanel>
+                                      <ul style={errorStyle}>
+                                          {error[0]}
+                                      </ul>
 
-                      <Components.RightOverlayPanel signinin={signIn}>
-                          <Components.Title>Hey, Friend!</Components.Title>
-                          <Components.Paragraph>
-                              Don't have an account ? sign up Now !!!
                           </Components.Paragraph>
-                          <Components.GhostButton onClick={() => toggle(false)}>
-                              Sigin Up
-                          </Components.GhostButton>
-                      </Components.RightOverlayPanel>
-                  </Components.Overlay>
-              </Components.OverlayContainer>
-          </Components.Container>
+                          }
+                      </Components.Form>
+                  </Components.SignInContainer>
+
+                  <Components.OverlayContainer signinin={signIn}>
+                      <Components.Overlay signinin={signIn}>
+                          <Components.LeftOverlayPanel signinin={signIn}>
+                              <Components.Title>Welcome Back!</Components.Title>
+                              <Components.Paragraph>
+                                  To keep connected with us please login
+                              </Components.Paragraph>
+                              <Components.GhostButton onClick={() => toggle(true)}>
+                                  Sign In
+                              </Components.GhostButton>
+                          </Components.LeftOverlayPanel>
+
+                          <Components.RightOverlayPanel signinin={signIn}>
+                              <Components.Title>Hey, Friend!</Components.Title>
+                              <Components.Paragraph>
+                                  Don't have an account ? sign up Now !!!
+                              </Components.Paragraph>
+                              <Components.GhostButton onClick={() => toggle(false)}>
+                                  Sigin Up
+                              </Components.GhostButton>
+                          </Components.RightOverlayPanel>
+                      </Components.Overlay>
+                  </Components.OverlayContainer>
+              </Components.Container>
+              :<Navigate to='/'/>
+          }
       </>
   );
 };
