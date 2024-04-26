@@ -10,7 +10,6 @@ interface AuthentificationProps {
 
 const Authentification: FC<AuthentificationProps> = ({ signIn, toggle }) => {
     const errorStyle={
-        //Todo:style error messages
     }
     const [inputDetails,setInputDetails] = useState([]);
     const [error,setError] = useState([]);
