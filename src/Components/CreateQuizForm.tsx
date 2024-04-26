@@ -1,17 +1,35 @@
 import {useState} from "react";
 import {randomQuizName} from '../utils/quizname-generator.ts'
+import {useNavigate} from "react-router";
 export default function CreateQuizForm(props) {
     const [formData, setFormData] = useState({
         name: ''
     });
+    const navigate=useNavigate()
+
     const handleInputChange = (event) => {
         const {name, value} = event.target;
         setFormData({...formData, [name]: value});
     };
     const handleSubmit = (event) => {
         event.preventDefault();
-        // todo: send data to createQUIZ endpoint
         console.log(formData);
+        //Todo:put the correct endpoint to create a quiz here
+        fetch(`http://localhost:3000/quiz/create`, {
+            method: "POST",
+            body: JSON.stringify(formData),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        }).then((res)=>{
+                return res.json();
+            }).then((data)=>{
+                console.log(data)
+                navigate('/build')
+        })
+
+
+
         //reset
         setFormData({
             name: '',

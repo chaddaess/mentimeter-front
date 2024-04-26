@@ -7,6 +7,7 @@ import React from "react";
 
 import './App.css'
 import PrivateRoutes from "./Components/PrivateRoutes.tsx";
+import BuildQuiz from "./Components/BuildQuiz.tsx";
 
 function App() {
     const [signIn, toggle] = React.useState(true);
@@ -15,20 +16,21 @@ function App() {
         <Routes>
             <Route element={<PrivateRoutes/>}>
                 <Route path="/" element={<Home/>}></Route>
-            </Route>
+                <Route path='/build' element={<BuildQuiz/>}></Route>
             <Route path="test" element={<Test/>}></Route>
-            <Route path="authentication" element={
-                <Authentification
-                    signIn={signIn}
-                    toggle={toggle}
-                />
-            }>
             </Route>
             <Route path="/logout"
                   element={
                     <LogoutComponent/>
                   }
             >
+            </Route>
+            <Route path="authentication" element={
+                <Authentification
+                    signIn={signIn}
+                    toggle={toggle}
+                />
+            }>
             </Route>
         </Routes>
 

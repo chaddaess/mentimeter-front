@@ -1,4 +1,5 @@
 import Logo from "./Logo.tsx";
+import {Link} from "react-router-dom";
 export default function sideBar(){
     const sideBarStyle={
         display:'flex',
@@ -29,7 +30,7 @@ export default function sideBar(){
                 <div style={{display:"flex",flexDirection:"column",justifyContent:"flex-end",alignItems:'flex-start',paddingBottom:"1em"}}>
                     <div style={sideBarElementStyle}><a>About us</a></div>
                     <div style={sideBarElementStyle}><a>Help and support</a></div>
-                    <div style={sideBarElementStyle}><a>Logout</a></div>
+                    <Link to="/logout" className="btn" style={sideBarElementStyle}>Logout</Link>
                 </div>
             </div>
         </>
