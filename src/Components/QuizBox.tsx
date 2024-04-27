@@ -1,4 +1,5 @@
 import React from "react";
+import {Button} from "./Component.tsx";
 
 export default function  QuizBox(){
     const [isHovered, setIsHovered] = React.useState(false);
@@ -11,6 +12,8 @@ export default function  QuizBox(){
         boxShadow: isHovered ? ' 0 0 11px rgba(33,33,33,.2)':'none',
     }
 
+
+
     return(
         <>
             <div style={{display:"flex",flexDirection:"column",alignItems:"flex-start"}}>
@@ -20,7 +23,8 @@ export default function  QuizBox(){
                 >
 
                 </div>
-                <p>Some Title</p>
+                <Button variant="contained" >Start Quiz</Button>
+
             </div>
         </>
     )
