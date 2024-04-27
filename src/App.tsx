@@ -9,6 +9,7 @@ import './App.css'
 import PrivateRoutes from "./Components/PrivateRoutes.tsx";
 import BuildQuiz from "./Components/BuildQuiz.tsx";
 import StartQuiz from "./Components/StartQuiz.tsx";
+import QuestionPage from './Components/QuestionPgae.tsx';
 
 function App() {
     const [signIn, toggle] = React.useState(true);
@@ -34,6 +35,7 @@ function App() {
             }>
             </Route>
             <Route path="/startquiz" Component={StartQuiz} />
+            <Route path="/qspage" Component={QuestionPage} />
 
         </Routes>
 
