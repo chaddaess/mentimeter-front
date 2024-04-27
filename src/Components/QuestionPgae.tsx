@@ -1,5 +1,6 @@
 import { WiDayThunderstorm } from "react-icons/wi";
 import styled from "styled-components";
+import Logo from "./Logo";
 
 
 export default function QuestionPage(){
@@ -47,8 +48,12 @@ export default function QuestionPage(){
             <Container >
                 <div>
                     <h2 style={{marginTop:'8%',marginBottom:'8%'}}>
-                        <span style={{color:"#6C0345"}}>Quiz</span>
-                        <span style={{color:"#DC6B19"}}>Up</span>
+                        <span style={{color:"#6C0345",display: "inline-flex", alignItems: "center"}}>
+                            <p style={{fontSize:'7px',margin:0 }}><Logo/></p>
+                            Quiz
+                            <span style={{color:"#DC6B19"}}>Up</span>
+                        </span>
+                        
                     </h2>
                     <form >          
                         <div>
