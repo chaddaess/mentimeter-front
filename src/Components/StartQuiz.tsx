@@ -37,9 +37,9 @@ export default function StartQuiz() {
             marginTop: "20px"
         }
     const participants = [
-        {avatarUrl: '', pseudonym: 'Alice'},
-        {avatarUrl: 'url2', pseudonym: 'Bob'},
-        {avatarUrl: 'url3', pseudonym: 'Charlie'},
+        {avatarUrl: 'src/assets/chicken.png', pseudonym: 'Alice'},
+        {avatarUrl: 'src/assets/chicken.png', pseudonym: 'Bob'},
+        {avatarUrl: 'src/assets/chicken.png', pseudonym: 'Charlie'},
         // Add more participants as needed
     ];
 
