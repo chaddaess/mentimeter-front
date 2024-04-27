@@ -37,10 +37,10 @@ export default function StartQuiz() {
             marginTop: "20px"
         }
     const participants = [
-        {avatarUrl: 'src/assets/chicken.png', pseudonym: 'Alice'},
-        {avatarUrl: 'src/assets/chicken.png', pseudonym: 'Bob'},
-        {avatarUrl: 'src/assets/chicken.png', pseudonym: 'Charlie'},
-        // Add more participants as needed
+        {avatarUrl: 'src/assets/chicken.png', pseudonym: 'kotkot'},
+        {avatarUrl: 'src/assets/chicken.png', pseudonym: 'kotkot'},
+        {avatarUrl: 'src/assets/chicken.png', pseudonym: 'kotkot'},
+
     ];
 
 
@@ -57,6 +57,7 @@ export default function StartQuiz() {
                 <h1>Join the Quiz!</h1>
                 <p>Here's the code to share with your participants:</p>
                 <Button variant="contained" >kotkotkot</Button>
+                <Button variant="contained" >Start now</Button>
 
                 <div style={participantBoardStyle}>
                     {participants.map((participant, index) => (
