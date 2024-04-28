@@ -15,7 +15,7 @@ function App() {
     <BrowserRouter>
         <Routes>
             <Route element={<PrivateRoutes/>}>
-                <Route path="/" element={<Home/>}></Route>
+                <Route path="/home" element={<Home/>}></Route>
                 <Route path='/build' element={<BuildQuiz/>}></Route>
             <Route path="test" element={<Test/>}></Route>
             </Route>

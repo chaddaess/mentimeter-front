@@ -38,7 +38,7 @@ const Authentification: FC<AuthentificationProps> = ({signIn, toggle}) => {
                 console.log("data : ", data);
                 if (!data['statusCode']) {
                     localStorage.setItem('loginInfo', JSON.stringify(data));
-                    navigate('/')
+                    navigate('/home')
                 } else {
                     const errorMessages = Array.isArray(data.message) ? data.message : [data.message];
                     setError(errorMessages)
@@ -117,7 +117,7 @@ const Authentification: FC<AuthentificationProps> = ({signIn, toggle}) => {
                 </div>
 
 
-                : <Navigate to='/'/>
+                : <Navigate to='/home'/>
             }
         </>
     );
