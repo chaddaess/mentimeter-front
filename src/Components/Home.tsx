@@ -4,7 +4,7 @@ import MainHomeBox from "./MainHomeBox.tsx";
 function Home() {
     const containerStyle = {
         display: 'flex',
-        height: '200vh', // Adjust as needed
+        height: '200vh',
         padding: 0,
         margin: 0,
         width: "98%",
