@@ -2,11 +2,11 @@ import {FC, useState} from 'react';
 import * as Components from './Component.tsx';
 import {Navigate, useNavigate} from "react-router";
 
-
 interface AuthentificationProps {
     signIn: boolean;
     toggle: (signIn: boolean) => void;
 }
+
 
 const Authentification: FC<AuthentificationProps> = ({signIn, toggle}) => {
     const errorStyle = {
@@ -72,6 +72,7 @@ const Authentification: FC<AuthentificationProps> = ({signIn, toggle}) => {
                                     </Components.Paragraph>
                                 }
                             </Components.Form>
+
                         </Components.SignUpContainer>
 
                         <Components.SignInContainer signinin={signIn}>
@@ -92,8 +93,8 @@ const Authentification: FC<AuthentificationProps> = ({signIn, toggle}) => {
                                     </Components.Paragraph>
                                 }
                             </Components.Form>
-                        </Components.SignInContainer>
 
+                        </Components.SignInContainer>
                         <Components.OverlayContainer signinin={signIn}>
                             <Components.Overlay signinin={signIn}>
                                 <Components.LeftOverlayPanel signinin={signIn}>
@@ -119,6 +120,7 @@ const Authentification: FC<AuthentificationProps> = ({signIn, toggle}) => {
                         </Components.OverlayContainer>
                     </Components.Container>
                 </div>
+
 
                 : <Navigate to='/'/>
             }
