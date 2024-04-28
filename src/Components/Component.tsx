@@ -9,6 +9,7 @@ export const Container = styled.div`
   width: 678px;
   max-width: 100%;
   min-height: 400px;
+  top: 100px;
 `;
 
 export const SignUpContainer = styled.div<{ signinin?: boolean }>`
@@ -50,8 +51,10 @@ export const Form = styled.form`
 `;
 
 export const Title = styled.h1`
-  font-weight: bold;
-  margin: 0;
+font-size: 2.5em; 
+font-weight: bold;
+margin: 0;
+top:2em;
 `;
 
 export const Input = styled.input`
@@ -97,7 +100,7 @@ export const OverlayContainer = styled.div<{ signinin?: boolean }>`
   position: absolute;
   top: 0;
   left: 50%;
-  width: 50%;
+  width: 60%;
   height: 100%;
   overflow: hidden;
   transition: transform 0.6s ease-in-out;
@@ -139,7 +142,7 @@ export const OverlayPanel = styled.div`
 `;
 
 interface OverlayPanelProps {
-  signinin: boolean;
+  signinin?: boolean;
 }
 
 export const LeftOverlayPanel = styled(OverlayPanel)<OverlayPanelProps>`
@@ -159,3 +162,9 @@ export const Paragraph = styled.p`
   letter-spacing: 0.5px;
   margin: 20px 0 30px;
 `;
+
+export const errorStyle = {
+  color: 'red',
+  listStyleType: 'none',
+  padding: '0',
+}

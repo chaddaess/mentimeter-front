@@ -17,6 +17,7 @@ function Home() {
         paddingLeft: '23%', // Adjust based on the width of the sidebar
     };
     const userinfo=JSON.parse(localStorage.getItem('loginInfo'))
+    console.log(userinfo)
     const   username=userinfo!=null?userinfo['username']:"stranger"
 
     return (

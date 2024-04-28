@@ -9,9 +9,7 @@ interface AuthentificationProps {
 
 
 const Authentification: FC<AuthentificationProps> = ({signIn, toggle}) => {
-    const errorStyle = {
-        //Todo:style error messages
-    }
+    
     const [inputDetails, setInputDetails] = useState([]);
     const [error, setError] = useState([]);
     const navigate = useNavigate()
@@ -21,9 +19,8 @@ const Authentification: FC<AuthentificationProps> = ({signIn, toggle}) => {
             ...prevState,
             [name]: value
         }));
-
-
     };
+
     const handleFormSubmit = (event, action) => {
         event.preventDefault();
         console.log(inputDetails)
@@ -65,10 +62,9 @@ const Authentification: FC<AuthentificationProps> = ({signIn, toggle}) => {
                                 <Components.Button>Sign Up</Components.Button>
                                 {error &&
                                     <Components.Paragraph>
-                                        <ul style={errorStyle}>
+                                        <ul style={Components.errorStyle}>
                                             {error[0]}
                                         </ul>
-
                                     </Components.Paragraph>
                                 }
                             </Components.Form>
@@ -86,10 +82,9 @@ const Authentification: FC<AuthentificationProps> = ({signIn, toggle}) => {
                                 <Components.Button>Sigin In</Components.Button>
                                 {error &&
                                     <Components.Paragraph>
-                                        <ul style={errorStyle}>
+                                        <ul style={Components.errorStyle}>
                                             {error[0]}
                                         </ul>
-
                                     </Components.Paragraph>
                                 }
                             </Components.Form>
