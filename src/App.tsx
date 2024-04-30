@@ -35,7 +35,11 @@ function App() {
             }>
             </Route>
             <Route path="/startquiz" Component={StartQuiz} />
-            <Route path="/qspage" Component={QuestionPage} />
+            <Route path="qspage" element={
+                <QuestionPage/>
+            }>
+            </Route>
+
 
         </Routes>
 

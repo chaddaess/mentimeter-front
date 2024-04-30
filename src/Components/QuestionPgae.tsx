@@ -1,9 +1,36 @@
-import { WiDayThunderstorm } from "react-icons/wi";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Logo from "./Logo";
 
-
 export default function QuestionPage(){
+
+    const quizId="fff2c4b1-c688-482e-af3c-9de4e77f791c";
+    const [questions, setQuestions] = useState([]);
+    useEffect(() => {
+        fetchQuestions();
+    }, []);
+
+    const fetchQuestions = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/quizzes/${quizId}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch questions');
+            }
+            const data = await response.json();
+            setQuestions(data.questions);
+        } catch (error) {
+            console.error("Error fetching questions:", error);
+        }
+    };
+
+    let QuestionText = '';
+    let QuestionOptions = [];
+
+    if (questions.length > 0) {
+        const firstQuestion = questions[0];
+        QuestionText = firstQuestion.text;
+        QuestionOptions = firstQuestion.options;
+    }
 
     const Container = styled.div`
     background-color: #fff;
@@ -38,11 +65,13 @@ export default function QuestionPage(){
         marginBottom: '1em',
     }
     const buttonStyle = {
-        marginTop: '5em',
+        marginTop: '3em',
         backgroundColor: '#6C0345',
         color: 'white',
     }
-    
+    const questionStyle={
+        fontSize: '1.5em'
+    }
     return(
         <>
             <Container >
@@ -57,23 +86,18 @@ export default function QuestionPage(){
                     </h2>
                     <form >          
                         <div>
-                            <p>HOW MANY FINGERS DO I HAVE ??? VERY HARD QUESTION</p>
+                            <p style={questionStyle}>{QuestionText}</p>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
                         <div style={{ marginTop: '1em' }}>
-
-                            <div style={{...optionStyle,borderColor:borderColors[0] }}>
-                                <input type="radio" id="option1" name="answer" value="option1" />
-                                <label htmlFor="option1">Option 1</label>
-                            </div>
-                            <div style={{...optionStyle,borderColor:borderColors[1] }}>
-                                <input type="radio" id="option2" name="answer" value="option2" />
-                                <label htmlFor="option2">Option 2</label>
-                            </div>
-                            <div style={{...optionStyle,borderColor:borderColors[2] }}>
-                                <input type="radio" id="option3" name="answer" value="option3" />
-                                <label htmlFor="option3">Option 3</label>
-                            </div>
+                        <div>
+                            {QuestionOptions.map((option, index) => (
+                                <div key={index} style={{ ...optionStyle, borderColor: borderColors[index] }}>
+                                    <input type="radio" id={`option${index + 1}`} name="answer" value={`option${index + 1}`} />
+                                    <label htmlFor={`option${index + 1}`}>{option.label}</label>
+                                </div>
+                            ))}
+                        </div>
                         </div>
                         </div>
                         <button style={buttonStyle} type="submit">Submit Answer</button>      
