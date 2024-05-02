@@ -1,7 +1,8 @@
 import Logo from "./Logo.tsx";
 import {Link} from "react-router-dom";
+import {CSSProperties} from "react";
 export default function sideBar(){
-    const sideBarStyle={
+    const sideBarStyle : CSSProperties={
         display:'flex',
         flexDirection:"column",
         alignItems:'flex-start',

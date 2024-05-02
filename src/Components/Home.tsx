@@ -1,5 +1,6 @@
 import SideBar from "./SideBar.tsx";
 import MainHomeBox from "./MainHomeBox.tsx";
+import {CSSProperties} from "react";
 
 function Home() {
     const containerStyle = {
@@ -7,7 +8,7 @@ function Home() {
         padding: 0, margin: 0, width: "98%",
     };
 
-    const mainContentStyle = {
+    const mainContentStyle : CSSProperties = {
         flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: '23%', // Adjust based on the width of the sidebar
     };
     const userinfo = JSON.parse(localStorage.getItem('loginInfo'))

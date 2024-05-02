@@ -1,4 +1,3 @@
-import { FaPlusCircle } from "react-icons/fa";
 import QuizBox from "./QuizBox.tsx";
 import CreateQuizPopup from "./CreateQuizPopup.tsx";
 export default function MainHomeBox(props:any){
