@@ -1,42 +1,85 @@
-#root {
-  margin: 0 auto;
-  text-align: center;
-  min-height: 100vh;
+.podium-place h3, .podium-place p {
+    margin: 5px 0;
+}
+
+/* Styles for the rest of the leaderboard */
+.leaderboard-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.participant {
+    background-color: #f9f9f9;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.podium {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Aligns the base of the podium places */
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.podium-place {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #f1f1f1;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.podium-place:hover {
+    transform: translateY(-10px);
+}
+
+.place-1 {
+    background-color: gold;
+    padding: 30px 20px;
+    order: 2; /* Move to the middle */
+    height: 300px; /* Tallest */
+}
+
+.place-2 {
+    background-color: silver;
+    padding: 25px 20px;
+    order: 1; /* Stay to the left */
+    height: 250px;
+}
+
+.place-3 {
+    background-color: #cd7f32; /* Bronze */
+    padding: 20px;
+    order: 3; /* Stay to the right */
+    height: 200px;
+}
+
+/* Keeps the winner (place-1) visually in the center */
+.podium {
+    flex-direction: row;
 }
 
 
-/*.logo {*/
-/*  height: 6em;*/
-/*  padding: 1.5em;*/
-/*  will-change: filter;*/
-/*  transition: filter 300ms;*/
-/*}*/
-/*.logo:hover {*/
-/*  filter: drop-shadow(0 0 2em #646cffaa);*/
-/*}*/
-/*.logo.react:hover {*/
-/*  filter: drop-shadow(0 0 2em #61dafbaa);*/
-/*}*/
+@media (max-width: 600px) {
+    .podium {
+        flex-direction: column;
+    }
 
-/*@keyframes logo-spin {*/
-/*  from {*/
-/*    transform: rotate(0deg);*/
-/*  }*/
-/*  to {*/
-/*    transform: rotate(360deg);*/
-/*  }*/
-/*}*/
+    .podium-place {
+        order: revert; /* Stacks in natural order on smaller screens */
+    }
 
-/*@media (prefers-reduced-motion: no-preference) {*/
-/*  a:nth-of-type(2) .logo {*/
-/*    animation: logo-spin infinite 20s linear;*/
-/*  }*/
-/*}*/
-
-/*.card {*/
-/*  padding: 2em;*/
-/*}*/
-
-/*.read-the-docs {*/
-/*  color: #888;*/
-/*}*/
+    .place-1, .place-2, .place-3 {
+        padding: 20px; /* Adjust padding for smaller screens */
+    }
+}
