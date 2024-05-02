@@ -84,3 +84,7 @@
         padding: 20px; /* Adjust padding for smaller screens */
     }
 }
+
+.stats{
+    text-align: end;
+}
