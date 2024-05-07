@@ -1,6 +1,6 @@
 import { useState,useEffect} from 'react';
 import {socket}from '../socket.js'
-import loader from "../assets/loader.gif"
+import loader from "../../public/assets/loader.gif"
 import {randomPseudo}from "../utils/pseudoGenerator.ts"
 
 

@@ -11,26 +11,6 @@ import WelcomePage from "./Components/WelcomePage.tsx";
 
 function App() {
     const [signIn, toggle] = React.useState(true);
-    return (<BrowserRouter>
-        <Routes>
-            <Route element={<PrivateRoutes/>}>
-                <Route path="/" element={<Home/>}></Route>
-                <Route path='/build' element={<BuildQuiz/>}></Route>
-            </Route>
-            <Route path="/logout"
-                   element={<LogoutComponent/>}
-            >
-            </Route>
-            <Route path="authentication" element={<Authentification
-                signIn={signIn}
-                toggle={toggle}
-            />}>
-            </Route>
-            <Route path="leaderboard" element={<Leaderboard/>}></Route>
-
-        </Routes>
-
-    </BrowserRouter>)
     return (
         <BrowserRouter>
             <Routes>
@@ -38,12 +18,13 @@ function App() {
                 <Route element={<PrivateRoutes />}>
                     <Route path="/home" element={<Home />} />
                     <Route path="/build" element={<BuildQuiz />} />
-                    <Route path="/test" element={<Test />} />
                 </Route>
                 <Route path="/logout" element={<LogoutComponent />} />
                 <Route path="/authentication" element={
                     <Authentification signIn={signIn} toggle={toggle} />
                 } />
+                <Route path="leaderboard" element={<Leaderboard/>}></Route>
+
             </Routes>
         </BrowserRouter>
     );
