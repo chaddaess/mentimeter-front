@@ -1,54 +1,58 @@
-import {useState} from "react";
-import {useNavigate} from "react-router";
-export default function EnterQuizCodeForm(props) {
-    const randomNumber = Math.floor(Math.random() * (50000) +13);
-    const [formData, setFormData] = useState({
-        name: ''
-    });
-    const navigate=useNavigate()
+import { useState } from 'react';
 
-    const handleInputChange = (event) => {
-        const {name, value} = event.target;
-        setFormData({...formData, [name]: value});
-    };
-    const handleSubmit = (event) => {
+const QuizJoinForm = () => {
+    const [quizCode, setQuizCode] = useState('');
+    const [playerName, setPlayerName] = useState('');
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const socket = new WebSocket('ws://localhost:3001');
+        socket.onopen = () => {
+            console.log('WebSocket connection established successfully.');
+            socket.send(JSON.stringify({ type: 'joinQuiz', data: { quizCode, playerName } }));
+        };
+
+        // Handle messages received from the server
+        socket.onmessage = (event) => {
+            const message = JSON.parse(event.data);
+            switch (message.type) {
+                case 'playerJoined':
+                    console.log('Player joined:', message.data);
+                    // You can navigate to the quiz room or update UI accordingly
+                    break;
+                case 'errorMsg':
+                    console.error('Error joining quiz:', message.data);
+                    // Display error to the user
+                    break;
+                default:
+                    console.warn('Unknown message type:', message.type);
+            }
+        };
+
+        // Handle WebSocket errors
+        socket.onerror = (error) => {
+            console.error('WebSocket error:', error);
+        };
     };
-    const formStyle={
-        display:"flex",
-        flexDirection:"column",
-        justifyContent:"flex-start"
-    }
-    const buttonStyle={
-        width:"10em",
-        height:"4em",
-        borderRadius:"50px",
-        marginTop:"1em",
-        backgroundColor:"rgba(225,175,209,0.94)"
-    }
-    const inputStyle={
-        width:"100%",
-        height:"3em",
-        borderRadius:"50px",
-        border:"none",
-        paddingLeft:"1em"
-    }
+
     return (
-        <>
-            <h3>Enter the quiz code </h3>
-            <form onSubmit={handleSubmit} style={formStyle}>
-                <div>
-                    <input
-                        style={inputStyle}
-                        type="text"
-                        id="code"
-                        name="code"
-                        onChange={handleInputChange}
-                        placeholder={randomNumber}
-                    />
-                </div>
-                <button  style={buttonStyle}>Let's Go ! </button>
-            </form>
-        </>
-    )
-}
+        <form onSubmit={handleSubmit}>
+            <input
+                type="text"
+                placeholder="Enter quiz code"
+                value={quizCode}
+                onChange={(e) => setQuizCode(e.target.value)}
+            />
+            <input
+                type="text"
+                placeholder="Enter your name"
+                value={playerName}
+                onChange={(e) => setPlayerName(e.target.value)}
+            />
+            <button type="submit">Join Quiz</button>
+        </form>
+    );
+};
+
+export default QuizJoinForm;
