@@ -4,8 +4,11 @@ import {CSSProperties} from "react";
 
 function Home() {
     const containerStyle = {
-        display: 'flex', height: '200vh', // Adjust as needed
-        padding: 0, margin: 0, width: "98%",
+        display: 'flex',
+        height: '200vh',
+        padding: 0,
+        margin: 0,
+        width: "98%",
     };
 
     const mainContentStyle : CSSProperties = {
