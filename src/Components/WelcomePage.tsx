@@ -1,14 +1,13 @@
 import Navbar from "./Navbar.tsx";
 import Popup from "reactjs-popup";
 import {FaRegCircleXmark} from "react-icons/fa6";
-import CreateQuizForm from "./CreateQuizForm.tsx";
-import {useState} from "react";
+import {CSSProperties, useState} from "react";
 import EnterQuizCodeForm from "./EnterQuizCodeForm.tsx";
 
 function WelcomePage(){
     const [open, setOpen] = useState(false);
     const closeModal = () => setOpen(false);
-    const modalStyle={
+    const modalStyle:CSSProperties={
         width:"60%",
         height: "auto",
         backgroundColor:"#F6F5F2",
@@ -24,7 +23,7 @@ function WelcomePage(){
 
 
     }
-    const overlayStyle = {
+    const overlayStyle:CSSProperties = {
         position: "fixed",
         top: 0,
         left: 0,

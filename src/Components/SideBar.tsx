@@ -1,4 +1,3 @@
-import Logo from "./Logo.tsx";
 import {Link} from "react-router-dom";
 import LogoName from "./LogoName.tsx";
 import {CSSProperties} from "react";
