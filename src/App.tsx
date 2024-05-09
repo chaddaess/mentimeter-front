@@ -24,7 +24,6 @@ function App() {
                     <Authentification signIn={signIn} toggle={toggle} />
                 } />
                 <Route path="leaderboard" element={<Leaderboard/>}></Route>
-
             </Routes>
         </BrowserRouter>
     );

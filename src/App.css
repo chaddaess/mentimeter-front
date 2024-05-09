@@ -39,10 +39,6 @@
     width: 100%;
 }
 
-body {
-    width: 99%
-}
-
 .podium-place:hover {
     transform: translateY(-10px);
 }
