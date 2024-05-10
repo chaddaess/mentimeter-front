@@ -1,32 +1,30 @@
-import {BrowserRouter, Route, Routes} from 'react-router-dom'
-import Home from "./Components/Home.tsx";
-import Authentification from './Components/Authentification.tsx';
-import LogoutComponent from "./Components/LogoutComponent.tsx"
-import React from "react";
-import './App.css'
-import PrivateRoutes from "./Components/PrivateRoutes.tsx";
-import BuildQuiz from "./Components/BuildQuiz.tsx";
-import Leaderboard from "./Components/Leaderboard.tsx";
-import WelcomePage from "./Components/WelcomePage.tsx";
+import {useState} from 'react';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import './App.css';
+import Authentification from './Components/Authentification';
+import BuildQuiz from './Components/BuildQuiz';
+import Home from './Components/Home';
+import Leaderboard from './Components/Leaderboard';
+import LogoutComponent from './Components/LogoutComponent';
+import PrivateRoutes from './Components/PrivateRoutes';
+import WelcomePage from './Components/WelcomePage';
 
 function App() {
-    const [signIn, toggle] = React.useState(true);
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<WelcomePage />} />
-                <Route element={<PrivateRoutes />}>
-                    <Route path="/home" element={<Home />} />
-                    <Route path="/build" element={<BuildQuiz />} />
-                </Route>
-                <Route path="/logout" element={<LogoutComponent />} />
-                <Route path="/authentication" element={
-                    <Authentification signIn={signIn} toggle={toggle} />
-                } />
-                <Route path="leaderboard" element={<Leaderboard/>}></Route>
-            </Routes>
-        </BrowserRouter>
-    );
+    const [signIn, setSignIn] = useState(true);
+    const toggleSignIn = () => setSignIn(!signIn);
+
+    return (<BrowserRouter>
+        <Routes>
+            <Route path="/" element={<WelcomePage/>}/>
+            <Route element={<PrivateRoutes/>}>
+                <Route path="/home" element={<Home/>}/>
+                <Route path="/build" element={<BuildQuiz/>}/>
+            </Route>
+            <Route path="/logout" element={<LogoutComponent/>}/>
+            <Route path="/authentication" element={<Authentification signIn={signIn} toggle={toggleSignIn}/>}/>
+            <Route path="leaderboard" element={<Leaderboard/>}></Route>
+        </Routes>
+    </BrowserRouter>);
 }
 
 export default App;

@@ -7,18 +7,23 @@ interface AuthentificationProps {
     toggle: (signIn: boolean) => void;
 }
 
+interface InputDetails {
+    email: string;
+    password: string;
+}
+
 const Authentification: FC<AuthentificationProps> = ({signIn, toggle}) => {
-    const [inputDetails, setInputDetails] = useState([]);
-    const [error, setError] = useState([]);
+    const [inputDetails, setInputDetails] = useState<InputDetails>({email: '', password: ''});
+    const [errors, setErrors] = useState<string[]>([]);
     const navigate = useNavigate()
-    const handleInputChange = (event) => {
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = event.target;
         setInputDetails(prevState => ({
             ...prevState, [name]: value
         }));
     };
 
-    const handleFormSubmit = (event, action) => {
+    const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>, action: 'register' | 'login') => {
         event.preventDefault();
         console.log(inputDetails)
         fetch(`http://localhost:3000/authentication/${action}`, {
@@ -26,9 +31,7 @@ const Authentification: FC<AuthentificationProps> = ({signIn, toggle}) => {
                 'Content-type': 'application/json; charset=UTF-8',
             },
         })
-            .then((res) => {
-                return res.json();
-            })
+            .then(res => res.json())
             .then((data) => {
                 console.log("data : ", data);
                 if (!data['statusCode']) {
@@ -36,14 +39,16 @@ const Authentification: FC<AuthentificationProps> = ({signIn, toggle}) => {
                     navigate('/home')
                 } else {
                     const errorMessages = Array.isArray(data.message) ? data.message : [data.message];
-                    setError(errorMessages)
+                    setErrors(errorMessages)
                     console.log("errors:", errorMessages)
-
                 }
             });
     }
+    if (localStorage.getItem('loginInfo')) {
+        return <Navigate replace to="/home"/>;
+    }
     return (<>
-        {!localStorage.getItem('loginInfo') ? <div className="centered_div">
+        <div className="centered_div">
             <Components.Container>
                 <Components.SignUpContainer signinin={signIn}>
                     <Components.Form onSubmit={(event) => handleFormSubmit(event, 'register')}>
@@ -53,13 +58,12 @@ const Authentification: FC<AuthentificationProps> = ({signIn, toggle}) => {
                         <Components.Input name="password" type='password' placeholder='Password'
                                           onChange={handleInputChange}/>
                         <Components.Button>Sign Up</Components.Button>
-                        {error && <Components.Paragraph>
+                        {errors.length > 0 && <Components.Paragraph>
                             <ul style={Components.errorStyle}>
-                                {error[0]}
+                                {errors.map((error, i) => (<li key={i}>{error}</li>))}
                             </ul>
                         </Components.Paragraph>}
                     </Components.Form>
-
                 </Components.SignUpContainer>
 
                 <Components.SignInContainer signinin={signIn}>
@@ -71,14 +75,14 @@ const Authentification: FC<AuthentificationProps> = ({signIn, toggle}) => {
                                           onChange={handleInputChange}/>
                         {/*<Components.Anchor href='#'>Forgot your password?</Components.Anchor>*/}
                         <Components.Button>Sigin In</Components.Button>
-                        {error && <Components.Paragraph>
+                        {errors.length > 0 && <Components.Paragraph>
                             <ul style={Components.errorStyle}>
-                                {error[0]}
+                                {errors.map((error, i) => (<li key={i}>{error}</li>))}
                             </ul>
                         </Components.Paragraph>}
                     </Components.Form>
-
                 </Components.SignInContainer>
+
                 <Components.OverlayContainer signinin={signIn}>
                     <Components.Overlay signinin={signIn}>
                         <Components.LeftOverlayPanel signinin={signIn}>
@@ -103,7 +107,7 @@ const Authentification: FC<AuthentificationProps> = ({signIn, toggle}) => {
                     </Components.Overlay>
                 </Components.OverlayContainer>
             </Components.Container>
-        </div> : <Navigate to='/home'/>}
+        </div>
     </>);
 };
 
