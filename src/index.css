@@ -114,13 +114,13 @@ a:hover {
 /*TODO: Remove this, use a class if necessary*/
 body {
     background: #f6f5f7;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 100vh;
-    min-width: 320px;
-    min-height: 100vh;
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    /*flex-direction: column;*/
+    /*height: 100vh;*/
+    /*min-width: 320px;*/
+    /*min-height: 100vh;*/
 }
 
 h1 {
