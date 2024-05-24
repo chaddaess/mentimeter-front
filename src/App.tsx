@@ -1,13 +1,16 @@
-import {useState} from 'react';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import './App.css';
-import Authentification from './Components/Authentification';
-import BuildQuiz from './Components/BuildQuiz';
-import Home from './Components/Home';
-import Leaderboard from './Components/Leaderboard';
-import LogoutComponent from './Components/LogoutComponent';
-import PrivateRoutes from './Components/PrivateRoutes';
-import WelcomePage from './Components/WelcomePage';
+import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import Home from "./Components/Home.tsx";
+import Authentification from './Components/Authentification.tsx';
+import LogoutComponent from "./Components/LogoutComponent.tsx"
+import {useState} from "react";
+
+import './App.css'
+import PrivateRoutes from "./Components/PrivateRoutes.tsx";
+import BuildQuiz from "./Components/BuildQuiz.tsx";
+import Leaderboard from "./Components/Leaderboard.tsx";
+import WelcomePage from "./Components/WelcomePage.tsx";
+import StartQuiz from "./Components/StartQuiz.tsx";
+import QuestionPage from './Components/QuestionPgae.tsx';
 
 function App() {
     const [signIn, setSignIn] = useState(true);

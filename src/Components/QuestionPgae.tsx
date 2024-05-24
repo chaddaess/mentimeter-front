@@ -1,4 +1,3 @@
-import { WiDayThunderstorm } from "react-icons/wi";
 import styled from "styled-components";
 
 
