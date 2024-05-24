@@ -1,32 +1,31 @@
-import {CSSProperties, useEffect, useState} from "react";
-import SideBar from "./SideBar";
-import MainHomeBox from "./MainHomeBox";
-
+import SideBar from "./SideBar.tsx";
+import MainHomeBox from "./MainHomeBox.tsx";
+import {CSSProperties} from "react";
 
 function Home() {
-    const mainContentStyle: CSSProperties = {
+    const containerStyle = {
+        display: 'flex',
+        height: '200vh',
+        padding: 0,
+        margin: 0,
+        width: "98%",
+    };
+
+    const mainContentStyle : CSSProperties = {
         flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: '23%', // Adjust based on the width of the sidebar
     };
-    const [username, setUsername] = useState<string>("stranger");
+    const userinfo = JSON.parse(localStorage.getItem('loginInfo'))
+    console.log(userinfo)
+    const username = userinfo != null ? userinfo['username'] : "stranger"
 
-    useEffect(() => {
-        try {
-            const userinfo = JSON.parse(localStorage.getItem('loginInfo') || '{}');
-            console.log(userinfo);
-            if (userinfo && userinfo.username) {
-                setUsername(userinfo.username);
-            }
-        } catch (error) {
-            console.error("Failed to parse user info from localStorage", error);
-        }
-    }, []); // Empty dependency array means this effect runs once on mount
-
-    return (<nav className="container">
-        <SideBar/>
-        <div className="main-content" style={mainContentStyle}>
-            <MainHomeBox name={username}/>
-        </div>
-    </nav>);
+    return (<>
+            <div className="container" style={containerStyle}>
+                <SideBar/>
+                <div className="main-content" style={mainContentStyle}>
+                    <MainHomeBox name={username}/>
+                </div>
+            </div>
+        </>);
 }
 
 export default Home;
