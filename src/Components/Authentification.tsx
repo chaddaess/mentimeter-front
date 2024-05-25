@@ -31,7 +31,7 @@ const Authentification: FC<AuthentificationProps> = ({signIn, toggle}) => {
             })
             .then((data) => {
                 console.log("data : ", data);
-                if (!data['status']) {
+                if (!data['status'] && !data['statusCode']) {
                     localStorage.setItem('loginInfo', JSON.stringify(data));
                     navigate('/home')
                 } else {
