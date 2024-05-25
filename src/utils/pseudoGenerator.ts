@@ -29,25 +29,18 @@ const adj_by_letter = {
     "X": ["Xenophobic", "Xenodochial", "Xenial"],
 }
 
-const jobs = ["Curator", "Designer", "Boilermaker", "Podiatrist", "Economist", "Shampooer", "Firefighter", "Logistician", "Fundraiser",
-    "Bailiff", "Upholsterer", "Prosthodontist", "Legislator", "Geographer", "Historian", "Telemarketer", "Psychiatrist",
-    "Librarian", "Lawyer", "Carpenter", "Barber", "Cook", "Statistician", "Roofer", "Machinist", "Forester", "Physicist",
-    "Concierge", "Cashier", "Editor", "Surveyor", "Optometrist", "Faller", "Hydrologist", "Drafter", "Veterinarian",
-    "Actor", "Dancer", "Dentist", "Epidemiologist", "Model", "Sociologist", "Teller", "Audiologist", "Woodworker", "Therapist",
-    "Phlebotomist", "Rigger", "Archivist", "Dispatcher", "Millwright", "Chemist", "Photographer", "Pipelayer", "Dishwasher",
-    "Astronomer", "Taper", "Orderlie", "Engineer", "Anesthesiologist", "Choreographer", "Announcer", "Orthodontist", "Bartender",
-    "Stonemason", "Electrician", "Paperhanger", "Embalmer", "Mathematician", "Baker", "Actuarie", "Chiropractor", "Psychologist",
-    "Clerg", "Surgeon", "Glazier", "Counselor", "Microbiologist", "Pharmacist"]
+const jobs = ["Curator", "Designer", "Boilermaker", "Podiatrist", "Economist", "Shampooer", "Firefighter", "Logistician", "Fundraiser", "Bailiff", "Upholsterer", "Prosthodontist", "Legislator", "Geographer", "Historian", "Telemarketer", "Psychiatrist", "Librarian", "Lawyer", "Carpenter", "Barber", "Cook", "Statistician", "Roofer", "Machinist", "Forester", "Physicist", "Concierge", "Cashier", "Editor", "Surveyor", "Optometrist", "Faller", "Hydrologist", "Drafter", "Veterinarian", "Actor", "Dancer", "Dentist", "Epidemiologist", "Model", "Sociologist", "Teller", "Audiologist", "Woodworker", "Therapist", "Phlebotomist", "Rigger", "Archivist", "Dispatcher", "Millwright", "Chemist", "Photographer", "Pipelayer", "Dishwasher", "Astronomer", "Taper", "Orderlie", "Engineer", "Anesthesiologist", "Choreographer", "Announcer", "Orthodontist", "Bartender", "Stonemason", "Electrician", "Paperhanger", "Embalmer", "Mathematician", "Baker", "Actuarie", "Chiropractor", "Psychologist", "Clerg", "Surgeon", "Glazier", "Counselor", "Microbiologist", "Pharmacist"]
 
- function generateName() {
-    let job = jobs[getRandomInt(jobs.length)]
-    let letter = job.charAt(0);
-    let adjs = adj_by_letter[letter]
-    let adj = adjs[getRandomInt(adjs.length)]
-    let name = `The ${adj} ${job}`
+function generateName() {
+    const job = jobs[getRandomInt(jobs.length)]
+    const letter = job.charAt(0);
+    const adjs = adj_by_letter[letter]
+    const adj = adjs[getRandomInt(adjs.length)]
+    const name = `The ${adj} ${job}`
     return name
 }
-export const randomPseudo= generateName()
+
+export const randomPseudo = generateName()
     
 
 
