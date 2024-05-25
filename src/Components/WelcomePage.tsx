@@ -90,7 +90,7 @@ function WelcomePage() {
                             }}
                         />
                     </div>
-                <img src="/assets/welcome.webp" style={sideImageStyle} />
+                <img src="/assets/welcome.webp" alt="brika bel thon" style={sideImageStyle} />
             </div>
         </>
     );
