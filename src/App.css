@@ -46,64 +46,75 @@
     place-content: center;
 }
 
-.podium-place:hover {
-    transform: translateY(-10px);
-}
-
-.place-1 {
-    background-color: gold;
-    height: 300px; /* Tallest */
-}
-
-.place-2 {
-    background-color: silver;
-    height: 250px;
-}
-
-.place-3 {
-    background-color: #cd7f32; /* Bronze */
-    height: 200px;
-}
-
-.place-1, .place-2, .place-3 {
-    padding: 1em;
-}
-
-@media (max-width: 600px) {
-    .podium {
-        flex-direction: column;
+    #root {
+        margin: 0 auto;
+        text-align: center;
+        min-height: 100vh;
+        width: 100%;
     }
-}
 
-@media (min-width: 600px) {
-    /* Keeps the winner (place-1) visually in the center */
-    .podium {
-        flex-direction: row;
+    body {
+        width: 99%
+    }
+
+    .podium-place:hover {
+        transform: translateY(-10px);
     }
 
     .place-1 {
-        padding: 2em 1em;
-        order: 2; /* Move to the middle */
+        background-color: gold;
+        height: 300px; /* Tallest */
     }
 
     .place-2 {
-        padding: 1.5em 1em;
-        order: 1; /* Stay to the left */
+        background-color: silver;
+        height: 250px;
     }
 
     .place-3 {
-        order: 3; /* Stay to the right */
+        background-color: #cd7f32; /* Bronze */
+        height: 200px;
     }
 
-    .podium {
-        display: flex;
-        justify-content: center;
-        align-items: flex-end; /* Aligns the base of the podium places */
-        gap: 1.5em;
-        margin-bottom: 40px;
+    .place-1, .place-2, .place-3 {
+        padding: 1em;
     }
-}
 
-.stats {
-    text-align: end;
-}
+    @media (max-width: 600px) {
+        .podium {
+            flex-direction: column;
+        }
+    }
+
+    @media (min-width: 600px) {
+        /* Keeps the winner (place-1) visually in the center */
+        .podium {
+            flex-direction: row;
+        }
+
+        .place-1 {
+            padding: 2em 1em;
+            order: 2; /* Move to the middle */
+        }
+
+        .place-2 {
+            padding: 1.5em 1em;
+            order: 1; /* Stay to the left */
+        }
+
+        .place-3 {
+            order: 3; /* Stay to the right */
+        }
+
+        .podium {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end; /* Aligns the base of the podium places */
+            gap: 1.5em;
+            margin-bottom: 40px;
+        }
+    }
+
+    .stats {
+        text-align: end;
+    }
