@@ -35,10 +35,13 @@ const QuizJoinForm = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        socket.emit('joinQuiz', {quizCode, playerName});
+        socket.on('connect', ()=>console.log('connected'));
+        socket.emit('joinQuiz', {"quizCode": quizCode, "playerName": playerName});
+        console.log(socket);
         console.log(playerName);
         console.log(quizCode);
     }
+
     useEffect(() => {
         socket.on("errorMsg", () => {
             const success: HTMLElement = document.querySelector(".successJoining")
@@ -84,7 +87,6 @@ const QuizJoinForm = () => {
                 value={playerName}
                 onChange={(e) => setPlayerName(e.target.value)}
                 style={inputStyle}
-
             />
         </div>
         <div className={"errorJoining"} style={errorStyle}>
