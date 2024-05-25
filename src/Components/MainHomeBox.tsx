@@ -1,7 +1,7 @@
 import QuizBox from "./QuizBox.tsx";
 import CreateQuizPopup from "./CreateQuizPopup.tsx";
 import {useEffect, useState} from "react";
-export default function MainHomeBox(props:any){
+export default function MainHomeBox(props){
     const [quizzes, setQuizzes] = useState([]);
 
 
