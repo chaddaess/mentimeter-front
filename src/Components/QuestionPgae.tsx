@@ -1,41 +1,35 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Logo from "./Logo";
-import io from "socket.io-client";
+import {socket} from "../socket.js"
 
 export default function QuestionPage(){
 
-    const quizCode="0db40c19-b7d2-482d-99f7-ecd5d556de96";
+    const quizCode="5cca2938-ed50-415f-9372-e525f6d2fc57";
     const [questions, setQuestions] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [socket, setSocket] = useState(null);
 
     useEffect(() => {
-      // Connect to the WebSocket server
-      const socketConnection = io("http://localhost:3001");
-
-      socketConnection.on("connect", () => {
+      socket.on("connect", () => {
           console.log("Connected to WebSocket server");
-          socketConnection.emit("getQuestion", { quizCode: quizCode, questionNumber: currentQuestionIndex });
+          socket.emit("getQuestion", { quizCode: quizCode, questionNumber: currentQuestionIndex });
       });
 
-      socketConnection.on("question", (question) => {
-          console.log("Received question", question);
-          setQuestions((prevQuestions) => [...prevQuestions, question]);
+      socket.on("question", () => {
+          console.log("Received question");
+          // setQuestions((prevQuestions) => [...prevQuestions, question]);
       });
 
-      setSocket(socketConnection);
-
-      return () => {
-          socketConnection.disconnect();
-      };
+      // return () => {
+      //     socketConnection.disconnect();
+      // };
     }, []);
 
-  useEffect(() => {
-      if (socket) {
-          socket.emit("getQuestion", { quizCode: quizCode, questionNumber: currentQuestionIndex });
-      }
-  }, [currentQuestionIndex, socket]);
+  // useEffect(() => {
+  //     if (socket) {
+  //         socket.emit("getQuestion", { quizCode: quizCode, questionNumber: currentQuestionIndex });
+  //     }
+  // }, [currentQuestionIndex, socket]);
 
   const nextQuestion = () => {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
