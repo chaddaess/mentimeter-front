@@ -50,9 +50,9 @@ export default function MainHomeBox(props){
                     <h2 style={{color:"#F5DD61",fontSize:"2.5rem",margin:"1em 0"}}>Revisit your old quizzes</h2>
                 </div>
 
-                <div style={{...box, flexDirection: 'row', flexWrap: 'wrap'}}>
+                <div style={{...box, flexDirection: 'row', flexWrap: 'wrap',fontWeight:"bold"}}>
                     {quizzes.map((quiz,index) => (
-                        <div  key={index} style={{width: "30%", marginRight: "2em"}}>
+                        <div  key={index} style={{maxWidth: "40%", marginRight: "2em",marginBottom:"1em"}}>
                             <QuizBox quiz={quiz}/>
                         </div>
                 ))}

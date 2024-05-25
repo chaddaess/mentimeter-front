@@ -1,6 +1,7 @@
 import React from "react";
 import {Button} from "./Component.tsx";
 import {socket} from '../socket.js'
+import * as url from "url";
 
 
 export default function  QuizBox(props){
@@ -12,6 +13,12 @@ export default function  QuizBox(props){
         height:"14em",
         transition: 'box-shadow 0.3s ease',
         boxShadow: isHovered ? ' 0 0 11px rgba(33,33,33,.2)':'none',
+        backgroundImage:'url("/assets/question-marks.jpg")',
+        backgroundSize:"cover",
+        backgroundRepeat: 'repeat',
+        display:"flex",
+        flexDirection:"column",
+        justifyContent:"center"
     }
     const handleButtonClick=()=>{
         const payload={
@@ -30,13 +37,14 @@ export default function  QuizBox(props){
                      onMouseEnter={() => setIsHovered(true)}
                      onMouseLeave={() => setIsHovered(false)}
                 >
-                    {props.quiz.name}
+                    <p style={{fontSize:"1.5rem"}}>{props.quiz.name}</p>
                 </div>
                 <Button
                     style={{marginTop:"1em"}}
                     onClick={handleButtonClick}
                 >
-                    Start Quiz</Button>
+                    Start Quiz
+                </Button>
             </div>
         </>
     )
