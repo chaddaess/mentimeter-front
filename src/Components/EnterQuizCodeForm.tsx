@@ -81,7 +81,7 @@ const QuizJoinForm = () => {
         </div>
         <div className={"successJoining"} style={loadJoin}>
             Buckle up! joining quiz ..
-            <img src="/assets/loader" alt="loader" style={pacStyle}/>
+            <img src="/assets/loader.gif" alt="loader" style={pacStyle}/>
         </div>
         <button type="submit" style={buttonStyle}>Join Quiz</button>
     </form>);
