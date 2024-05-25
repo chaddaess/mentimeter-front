@@ -1,7 +1,7 @@
 import React from "react";
 import {Button} from "./Component.tsx";
 
-export default function  QuizBox(){
+export default function  QuizBox(props){
     const [isHovered, setIsHovered] = React.useState(false);
     const mainqQuizBoxStyle={
         borderRadius:"6px",
@@ -16,15 +16,14 @@ export default function  QuizBox(){
 
     return(
         <>
-            <div style={{display:"flex",flexDirection:"column",alignItems:"flex-start"}}>
+            <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
                 <div style={mainqQuizBoxStyle}
                      onMouseEnter={() => setIsHovered(true)}
                      onMouseLeave={() => setIsHovered(false)}
                 >
-
+                    {props.name}
                 </div>
-                <Button variant="contained" >Start Quiz</Button>
-
+                <Button variant="contained"  style={{marginTop:"1em"}}>Start Quiz</Button>
             </div>
         </>
     )

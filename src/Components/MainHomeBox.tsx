@@ -1,6 +1,9 @@
 import QuizBox from "./QuizBox.tsx";
 import CreateQuizPopup from "./CreateQuizPopup.tsx";
+import {useEffect, useState} from "react";
 export default function MainHomeBox(props:any){
+    const [quizzes, setQuizzes] = useState([]);
+
 
     const mainHomeBoxStyle={
         display:'flex',
@@ -15,13 +18,28 @@ export default function MainHomeBox(props:any){
         // border:'1px solid magenta',
         justifyContent:'flex-start'
     }
+    const userinfo = JSON.parse(localStorage.getItem('loginInfo'))
+    console.log(userinfo)
+    const email = userinfo != null ? userinfo['email'] : "stranger@gmail.com"
+
+    useEffect(()=>{
+        fetch(`http://localhost:3000/users/${email}/quizzes`)
+            .then((response)=>{
+                return response.json()
+            })
+            .then((data)=>{
+                console.log("this user's quizzes are",data)
+                setQuizzes(data);
+            })
+
+    },[])
 
 
     const quizBoxes = [];
     for (let i = 0; i < 5; i++) {
         quizBoxes.push(
             <div key={i} style={{width:"30%",marginRight:"2em"}}>
-                <QuizBox />
+                <QuizBox  />
             </div>
         );
     }
@@ -37,12 +55,17 @@ export default function MainHomeBox(props:any){
                     <CreateQuizPopup/>
                 </div>
                 <div style={box}>
-                    <h2 style={{color:"#F5DD61",fontSize:"2.5rem"}}>Revisit your old quizzes</h2>
+                    <h2 style={{color:"#F5DD61",fontSize:"2.5rem",margin:"1em 0"}}>Revisit your old quizzes</h2>
                 </div>
+
                 <div style={{...box, flexDirection: 'row', flexWrap: 'wrap'}}>
-                    {quizBoxes}
-                </div>
+                    {quizzes.map((quiz) => (
+                        <div style={{width: "30%", marginRight: "2em"}}>
+                            <QuizBox name={quiz.name}/>
+                        </div>
+                ))}
             </div>
+        </div>
         </>
     )
 
