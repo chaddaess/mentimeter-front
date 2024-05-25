@@ -1,3 +1,12 @@
+.wrapper {
+    width: min(100% - 3rem, 30rem);
+    margin-inline: auto;
+}
+
+.flow > * + * {
+    margin-top: var(--flow-space, clamp(1em, 10%, 3em));
+}
+
 .podium-place h3, .podium-place p {
     margin: 5px 0;
 }
