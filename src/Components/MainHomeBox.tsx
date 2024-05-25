@@ -35,14 +35,6 @@ export default function MainHomeBox(props:any){
     },[])
 
 
-    const quizBoxes = [];
-    for (let i = 0; i < 5; i++) {
-        quizBoxes.push(
-            <div key={i} style={{width:"30%",marginRight:"2em"}}>
-                <QuizBox  />
-            </div>
-        );
-    }
     return(
         <>
             <div className="MainHomeBox" style={mainHomeBoxStyle}>
@@ -59,9 +51,9 @@ export default function MainHomeBox(props:any){
                 </div>
 
                 <div style={{...box, flexDirection: 'row', flexWrap: 'wrap'}}>
-                    {quizzes.map((quiz) => (
-                        <div style={{width: "30%", marginRight: "2em"}}>
-                            <QuizBox name={quiz.name}/>
+                    {quizzes.map((quiz,index) => (
+                        <div  key={index} style={{width: "30%", marginRight: "2em"}}>
+                            <QuizBox quiz={quiz}/>
                         </div>
                 ))}
             </div>
