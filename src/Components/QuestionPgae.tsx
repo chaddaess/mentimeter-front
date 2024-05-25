@@ -1,9 +1,12 @@
-import { WiDayThunderstorm } from "react-icons/wi";
+import {socket} from '../socket.js'
+import { useNavigate} from "react-router";
+
 import styled from "styled-components";
+import {useEffect} from "react";
 
 
 export default function QuestionPage(){
-
+    const navigate = useNavigate()
     const Container = styled.div`
     background-color: #fff;
     border-radius: 10px;
@@ -16,6 +19,20 @@ export default function QuestionPage(){
     max-width: 100%;
     min-height: 400px;
     `;
+
+    useEffect(() => {
+        socket.on("endQuiz", (payload) => {
+            console.log("quiz ended")
+            navigate(
+                '/leaderboard',
+                {
+                    state:{payload:payload}
+                }
+            )
+        })
+    })
+
+
     function getRandomColor() {
         const min = 150; // Minimum value for r, g, b to ensure lighter shades
         const max = 256; // Maximum value for r, g, b to ensure pastel shades

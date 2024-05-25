@@ -1,14 +1,13 @@
 import Navbar from "./Navbar.tsx";
 import Popup from "reactjs-popup";
 import { FaRegCircleXmark } from "react-icons/fa6";
-import { CSSProperties, useEffect, useState } from "react";
+import { CSSProperties, useState } from "react";
 import EnterQuizCodeForm from "./EnterQuizCodeForm.tsx";
 import Typewriter from 'typewriter-effect';
 
+
 function WelcomePage() {
     const [open, setOpen] = useState(false);
-    const [fontLoaded, setFontLoaded] = useState(false);
-
     const closeModal = () => setOpen(false);
 
     const modalStyle: CSSProperties = {
@@ -64,11 +63,6 @@ function WelcomePage() {
         'Join the Fun – Start a Quiz <span style="color: #cd7f32">Now!</span>'
     ];
 
-    useEffect(() => {
-        document.fonts.ready.then(() => {
-            setFontLoaded(true);
-        });
-    }, []);
 
     return (
         <>
@@ -86,7 +80,6 @@ function WelcomePage() {
                 </div>
             </Popup>
             <div className="welcome-container" style={containerStyle}>
-                {fontLoaded && (
                     <div style={typewriterContainerStyle}>
                         <Typewriter
                             options={{
@@ -97,7 +90,6 @@ function WelcomePage() {
                             }}
                         />
                     </div>
-                )}
                 <img src="/assets/welcome.webp" style={sideImageStyle} />
             </div>
         </>

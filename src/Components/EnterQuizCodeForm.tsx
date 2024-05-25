@@ -32,6 +32,7 @@ const QuizJoinForm = () => {
     const [quizCode, setQuizCode] = useState('');
     const [playerName, setPlayerName] = useState('');
 
+
     const handleSubmit = (event) => {
         event.preventDefault()
         socket.emit('joinQuiz', {quizCode, playerName});
@@ -51,7 +52,17 @@ const QuizJoinForm = () => {
             error.style.display = "none"
             success.style.display = "flex";
         })
-    }, [socket])
+        // socket.on("endQuiz", (payload) => {
+        //     console.log("quiz ended")
+        //     navigate(
+        //         '/leaderboard',
+        //         {
+        //             state:{payload:payload}
+        //         }
+        //     )
+        // })
+
+    })
 
 
     return (<form onSubmit={handleSubmit} style={formStyle}>
