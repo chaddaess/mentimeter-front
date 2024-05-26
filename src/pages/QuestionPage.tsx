@@ -1,7 +1,7 @@
-import { socket } from '../socket.js'
-import { useNavigate } from "react-router";
+import {socket} from '../socket.js'
+import {useNavigate} from "react-router";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
 
 export default function QuestionPage() {
@@ -9,19 +9,18 @@ export default function QuestionPage() {
     const [questions, setQuestions] = useState([]);
     const [questionNumber, setQuestionNumber] = useState(0);
     const [answerState, setAnswerState] = useState("");
-    const [isAnswering,setIsAnswering]=useState(false);
+    const [isAnswering, setIsAnswering] = useState(false);
 
     const navigate = useNavigate();
 
     const handleInputChange = (event) => {
-        const { value } = event.target;
+        const {value} = event.target;
         setAnswerState(value);
     };
 
-  const location = useLocation();
+    const location = useLocation();
     console.log(location)
     const code = location.state?.payload.quizCode || "N/A";
-    console.log(code)
 
     const sendAnswer = (event) => {
         event.preventDefault();
@@ -35,12 +34,6 @@ export default function QuestionPage() {
 
     useEffect(() => {
         if (isFirstTime) {
-            socket.emit("joinQuiz", {
-                quizCode: code,
-                playerName: "chadda",
-                avatar: ""
-            });
-
             socket.emit("sendQuestion", {
                 quizCode: code,
                 questionNumber: 0
@@ -62,13 +55,14 @@ export default function QuestionPage() {
                         playerPseudo: localStorage.getItem('name')
                     });
                 }
-            },10000);
+            }, 10000);
             return () => clearTimeout(questionTimer);
         });
 
         socket.on("endQuiz", (payload) => {
+            localStorage.removeItem('name');
             navigate('/leaderboard', {
-                state: { payload: payload }
+                state: {payload: payload}
             });
         });
 
@@ -76,10 +70,10 @@ export default function QuestionPage() {
             socket.off("question");
             socket.off("endQuiz");
         };
-    }, [isFirstTime, navigate]);
+    }, [navigate]);
 
     const currentQuestion = questions.find(q => q.questionNumber === questionNumber) || {};
-    const { question, options } = currentQuestion.question || {};
+    const {question, options} = currentQuestion.question || {};
 
     function getRandomColor() {
         const min = 150;
@@ -128,21 +122,20 @@ export default function QuestionPage() {
         fontSize: '1.5em'
     }
 
-    return (
-        <Container>
+    return (<Container>
             <div>
-                <h2 style={{ marginTop: '8%', marginBottom: '8%' }}>
-                    <span style={{ color: "#6C0345" }}>Quiz</span>
-                    <span style={{ color: "#DC6B19" }}>Up</span>
+                <h2 style={{marginTop: '8%', marginBottom: '8%'}}>
+                    <span style={{color: "#6C0345"}}>Quiz</span>
+                    <span style={{color: "#DC6B19"}}>Up</span>
                 </h2>
                 <form onSubmit={sendAnswer}>
                     <div>
                         <p style={questionStyle}>{question}</p>
                     </div>
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        <div style={{ marginTop: '1em' }}>
+                    <div style={{display: 'flex', flexDirection: 'column'}}>
+                        <div style={{marginTop: '1em'}}>
                             {options && options.map((option, index) => (
-                                <div key={index} style={{ ...optionStyle, borderColor: borderColors[index] }}>
+                                <div key={index} style={{...optionStyle, borderColor: borderColors[index]}}>
                                     <input
                                         type="radio"
                                         id={`option${index}`}
@@ -151,13 +144,11 @@ export default function QuestionPage() {
                                         onChange={handleInputChange}
                                     />
                                     <label htmlFor={`option${index}`}>{option}</label>
-                                </div>
-                            ))}
+                                </div>))}
                         </div>
                     </div>
                     <button style={buttonStyle} type="submit" disabled={isAnswering}>Submit Answer</button>
                 </form>
             </div>
-        </Container>
-    )
+        </Container>)
 }
