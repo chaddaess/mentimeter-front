@@ -31,7 +31,6 @@ export default function MainHomeBox(props){
                 console.log("this user's quizzes are",data)
                 setQuizzes(data);
             })
-
     },[])
 
 
