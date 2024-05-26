@@ -64,11 +64,14 @@ export default function StartQuizPage() {
         <h2>Here's the code to share with your participants:</h2>
         <p style={codeStyle}>{sessionCode}</p>
         <div style={buttonContainerStyle}>
-            <Button><Link to="/home">Cancel</Link></Button>
+            <Link to="/home"><Button>Cancel</Button></Link>
             <Button>Start now</Button>
         </div>
         <div style={participantBoardStyle}>
             {participants.map((participant, index) => (<ParticipantCircle key={index} {...participant} />))}
         </div>
-    </div>)
+    </div>
+    // TODO: when the user closes the popup, disconnect him and remove him from the board
+)
 }
+

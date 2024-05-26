@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {useNavigate} from "react-router";
 import {useLocation} from 'react-router-dom';
 import {jwtDecode} from 'jwt-decode'
+import {FaTrash} from "react-icons/fa";
 
 export const Topics = {
     ANIMALS: 'animals',
@@ -24,24 +25,9 @@ export const Topics = {
 
 export type Topic = (typeof Topics)[keyof typeof Topics];
 
-const styles = `.quiz-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 auto;
-  width: 90%;
-  max-width: 600px;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
+const styles = `
 
 /* Topic selection dropdown */
-.select-container {
-  width: 100%;
-  margin-bottom: 10px;
-}
-
 select.topic-dropdown {
   width: 100%;
   padding: 5px;
@@ -49,31 +35,27 @@ select.topic-dropdown {
   border-radius: 3px;
 }
 
-/* Heading */
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
+.error-message {
+  color: #f44336;
 }
 
 /* Question input and options container */
 .question-container {
-  margin-bottom: 15px;
   display: flex;
   align-items: center;
   flex-direction: column;
   border: 1px solid #ddd;
   border-radius: 5px;
-  padding: 10px;
+  padding: 0.5rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* Question input field */
 .question-input {
   width: 80%;
-  padding: 10px;
+  padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 3px;
-  margin-bottom: 10px;
 }
 
 .option-container {
@@ -97,14 +79,9 @@ h1 {
 
 /* Option button (remove) */
 .option-remove-btn {
-  background-color: lightgrey;
-  opacity : 0.8;
-  color: rgba(0, 0, 0, 1);
-  padding: 5px;
   border: none;
   border-radius: 3px;
   cursor: pointer;
-  font-size: 14px;
 }
 
 /* Add question/option buttons */
@@ -115,7 +92,6 @@ h1 {
   border: none;
   border-radius: 3px;
   cursor: pointer;
-  margin-top: 10px;
 }
 
 /* Submit button */
@@ -126,7 +102,6 @@ h1 {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 20px;
 }
 
 /* Media query for smaller screens */
@@ -153,6 +128,7 @@ function BuildQuiz() {
     const navigate = useNavigate()
     const [topic, setTopic] = useState('');
     const [questions, setQuestions] = useState([{text: '', options: [''], validity: [false]}]);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const addQuestion = () => {
         setQuestions([...questions, {text: '', options: [''], validity: [false]}]);
@@ -202,6 +178,14 @@ function BuildQuiz() {
 
 
     const handleSubmit = () => {
+        // Validate that each question has at least one correct answer
+        const isValid = questions.every(question => question.validity.includes(true));
+
+        if (!isValid) {
+            setErrorMessage('Each question must have at least one correct answer.');
+            return;
+        }
+
         if (quizName === "") {
             quizName = "Untitled Quiz-" + topic;
         }
@@ -229,22 +213,17 @@ function BuildQuiz() {
             });
     };
 
-    return (<div className='quiz-form'>
+    return (<div className='flow wrapper'>
         <h1>Create Your Impossible Quiz</h1>
-        <p>Quiz Name: {quizName}</p>
-        <div className='select-container'>
-            <select
-                className='topic-dropdown'
-                value={topic}
-                onChange={handleTopicChange}
-            >
-                <option value="">Select Topic</option>
-                {Object.entries(Topics).map(([key, value]) => (<option key={key} value={value}>
-                    {key}
-                </option>))}
-            </select>
-        </div>
-        {questions.map((question, index) => (<div key={index} className='question-container'>
+        <h2>Quiz Name: {quizName}</h2>
+        <select className='topic-dropdown' value={topic} onChange={handleTopicChange}>
+            <option value="">Select Topic</option>
+            {Object.entries(Topics).map(([key, value]) => (<option key={key} value={value}>
+                {key}
+            </option>))}
+        </select>
+        {errorMessage && <p className='error-message'>{errorMessage}</p>}
+        {questions.map((question, index) => (<section key={index} className='flow wrapper question-container'>
             <label>Question {index + 1}</label>
             <input
                 type="text"
@@ -269,12 +248,12 @@ function BuildQuiz() {
                 />
                 <label>Correct </label>
                 <button className='option-remove-btn'
-                        onClick={() => removeOption(index, optionIndex)}>Remove Option
+                        onClick={() => removeOption(index, optionIndex)}><FaTrash/>
                 </button>
             </div>))}
             <button className='add-btn' onClick={() => addOption(index)}>Add Option</button>
-            <button onClick={() => removeQuestion(index)}>Remove Question</button>
-        </div>))}
+            <button onClick={() => removeQuestion(index)}><FaTrash/></button>
+        </section>))}
         <button className='add-btn' onClick={addQuestion}>Add Question</button>
         <br/>
         <button className='submit-btn' onClick={handleSubmit}>Submit Quiz</button>
