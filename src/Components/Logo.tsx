@@ -6,8 +6,7 @@ export default function Logo (props){
                 xmlSpace="preserve"
                 viewBox="0 0 416.449 416.449"
                 {...props}
-                style={{width: "6em", height: "5em"}}
-
+                style={{width: "5em", height: "4em"}}
             >
                 <path
                     d="M399.76 16.699c10.12 37.84 8.67 78.13-4.34 115.28h-.01L284.48 21.049v-.01c37.15-13.01 77.44-14.46 115.28-4.34z"

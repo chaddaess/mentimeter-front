@@ -6,7 +6,7 @@ import './App.css'
 import PrivateRoutes from "./Components/PrivateRoutes.tsx";
 import BuildQuiz from "./Components/BuildQuiz.tsx";
 import StartQuiz from "./Components/StartQuiz.tsx";
-import QuestionPage from './Components/QuestionPgae.tsx';
+import QuestionPage from './Components/QuestionPage.tsx';
 import {useState} from "react";
 import WelcomePage from "./Components/WelcomePage.tsx";
 import Leaderboard from "./Components/Leaderboard.tsx";
