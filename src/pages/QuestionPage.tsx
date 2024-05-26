@@ -29,7 +29,7 @@ export default function QuestionPage() {
             quizCode: code,
             answer: answerState,
             questionNumber: questionNumber,
-            playerPseudo: "chadda"
+            playerPseudo: localStorage.getItem('name')
         });
     }
 
@@ -59,7 +59,7 @@ export default function QuestionPage() {
                         quizCode: code,
                         answer: "",
                         questionNumber: questionNumber,
-                        playerPseudo: "chadda"
+                        playerPseudo: localStorage.getItem('name')
                     });
                 }
             },10000);

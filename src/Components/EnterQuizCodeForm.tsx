@@ -33,9 +33,11 @@ const QuizJoinForm = () => {
     const [selectedAvatar, setSelectedAvatar] = useState(predefinedAvatars[0]);
     const [hasJoined, setHasJoined] = useState(false);
     const handleSubmit = (event) => {
-        event.preventDefault()
+        event.preventDefault();
         socket.on('connect', () => console.log('connected'));
         socket.emit('joinQuiz', {"quizCode": quizCode, "playerName": playerName, "avatar": selectedAvatar});
+        localStorage.setItem('name', playerName);
+        console.log(playerName);
         setHasJoined(true); // Disable the button after joining
     }
 

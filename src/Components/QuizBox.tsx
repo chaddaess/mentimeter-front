@@ -27,6 +27,7 @@ export default function QuizBox(props) {
         const payload = {
             quiz: props.quiz, owner: userinfo
         }
+        console.log(payload);
         socket.emit('createQuizSession', payload)
     }
 

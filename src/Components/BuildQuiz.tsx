@@ -1,7 +1,6 @@
 import {useState} from 'react';
 import {useNavigate} from "react-router";
 import {useLocation} from 'react-router-dom';
-import {jwtDecode} from 'jwt-decode'
 import {FaTrash} from "react-icons/fa";
 
 export const Topics = {
