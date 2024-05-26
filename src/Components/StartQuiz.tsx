@@ -4,11 +4,9 @@ import {socket} from "../socket";
 
 export default function StartQuiz() {
     const [participants, setParticipants] = useState([{
-        avatarUrl: '/assets/chicken.png',
-        pseudonym: 'kotkot'
+        avatarUrl: '/assets/chicken.png', pseudonym: 'kotkot'
     }, {avatarUrl: '/assets/chicken.png', pseudonym: 'kotkot'}, {
-        avatarUrl: '/assets/chicken.png',
-        pseudonym: 'kotkot'
+        avatarUrl: '/assets/chicken.png', pseudonym: 'kotkot'
     },]);
 
     const avatarStyle = {
@@ -47,7 +45,6 @@ export default function StartQuiz() {
             socket.off('playerJoined');
         };
     }, []);
-
 
     return (<div style={startQuizStyle}>
         <h1>Join the Quiz!</h1>
