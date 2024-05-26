@@ -4,11 +4,10 @@ import {useNavigate} from "react-router";
 import styled from "styled-components";
 import {useState} from "react";
 
-
 export default function QuestionPage() {
     const [isFirstTime, setIsFirstTime] = useState(true);
-    const [questionNumber,setQuestionNumber]=useState(0);
-    const [isAnswering,setIsAnswering]=useState(false);
+    const [questionNumber, setQuestionNumber] = useState(0);
+    const [isAnswering, setIsAnswering] = useState(false);
     const navigate = useNavigate()
     const Container = styled.div`
         background-color: #fff;
@@ -27,26 +26,18 @@ export default function QuestionPage() {
     const sendAnswer = (event) => {
         event.preventDefault();
         setIsAnswering(true)
-        socket.emit("getAnswer",
-            {
-                quizCode: code,
-                //TODO: get the answer dynamically from the form
-                answer: "4",
-                questionNumber:questionNumber,
-                playerPseudo: "chadda"
-            }
-        )
+        socket.emit("getAnswer", {
+            quizCode: code, //TODO: get the answer dynamically from the form
+            answer: "4", questionNumber: questionNumber, playerPseudo: "chadda"
+        })
     }
 
-    if(isFirstTime){
+    if (isFirstTime) {
         socket.emit("joinQuiz", {
-            quizCode: code,
-            playerName: "chadda",
-            avatar: ""
+            quizCode: code, playerName: "chadda", avatar: ""
         });
         socket.emit("sendQuestion", {
-            quizCode: code,
-            questionNumber: 0
+            quizCode: code, questionNumber: 0
         });
 
         setIsFirstTime(false)
@@ -58,24 +49,18 @@ export default function QuestionPage() {
         const questionTimer = setTimeout(() => {
             if (!isAnswering) {
                 socket.emit("getAnswer", {
-                    quizCode: code,
-                    answer: "",
-                    questionNumber: questionNumber,
-                    playerPseudo: "chadda"
+                    quizCode: code, answer: "", questionNumber: questionNumber, playerPseudo: "chadda"
                 });
             }
-        },10000);
+        }, 10000);
         return () => clearTimeout(questionTimer);
     })
 
     socket.on("endQuiz", (payload) => {
         console.log("quiz ended")
-        navigate(
-            '/leaderboard',
-            {
-                state: {payload: payload}
-            }
-        )
+        navigate('/leaderboard', {
+            state: {payload: payload}
+        })
     })
 
     function getRandomColor() {
@@ -100,45 +85,39 @@ export default function QuestionPage() {
         marginBottom: '1em',
     }
     const buttonStyle = {
-        marginTop: '5em',
-        backgroundColor: '#6C0345',
-        color: 'white',
-        cursor: isAnswering ? 'not-allowed' : 'pointer',
+        marginTop: '5em', backgroundColor: '#6C0345', color: 'white', cursor: isAnswering ? 'not-allowed' : 'pointer',
     }
 
-    return (
-
-
-            <Container>
+    return (<Container>
+        <div>
+            <h2 style={{marginTop: '8%', marginBottom: '8%'}}>
+                <span style={{color: "#6C0345"}}>Quiz</span>
+                <span style={{color: "#DC6B19"}}>Up</span>
+            </h2>
+            {/*TODO:change the hardcoded question to the question recieved from the websocket*/}
+            <form onSubmit={sendAnswer}>
                 <div>
-                    <h2 style={{marginTop: '8%', marginBottom: '8%'}}>
-                        <span style={{color: "#6C0345"}}>Quiz</span>
-                        <span style={{color: "#DC6B19"}}>Up</span>
-                    </h2>
-                    {/*TODO:change the hardcoded question to the question recieved from the websocket*/}
-                    <form onSubmit={sendAnswer}>
-                        <div>
-                            <p>HOW MANY FINGERS DO I HAVE ??? VERY HARD QUESTION</p>
-                        </div>
-                        <div style={{display: 'flex', flexDirection: 'column'}}>
-                            <div style={{marginTop: '1em'}}>
+                    <p>HOW MANY FINGERS DO I HAVE ??? VERY HARD QUESTION</p>
+                </div>
+                <div style={{display: 'flex', flexDirection: 'column'}}>
+                    <div style={{marginTop: '1em'}}>
 
-                                <div style={{...optionStyle, borderColor: borderColors[0]}}>
-                                    <input type="radio" id="option1" name="answer" value="option1"/>
-                                    <label htmlFor="option1">Option 1</label>
-                                </div>
-                                <div style={{...optionStyle, borderColor: borderColors[1]}}>
-                                    <input type="radio" id="option2" name="answer" value="option2"/>
-                                    <label htmlFor="option2">Option 2</label>
-                                </div>
-                                <div style={{...optionStyle, borderColor: borderColors[2]}}>
-                                    <input type="radio" id="option3" name="answer" value="option3"/>
-                                    <label htmlFor="option3">Option 3</label>
-                                </div>
-                            </div>
+                        <div style={{...optionStyle, borderColor: borderColors[0]}}>
+                            <input type="radio" id="option1" name="answer" value="option1"/>
+                            <label htmlFor="option1">Option 1</label>
+                        </div>
+                        <div style={{...optionStyle, borderColor: borderColors[1]}}>
+                            <input type="radio" id="option2" name="answer" value="option2"/>
+                            <label htmlFor="option2">Option 2</label>
+                        </div>
+                        <div style={{...optionStyle, borderColor: borderColors[2]}}>
+                            <input type="radio" id="option3" name="answer" value="option3"/>
+                            <label htmlFor="option3">Option 3</label>
+                        </div>
                     </div>
-                    <button style={buttonStyle} type="submit" disabled={isAnswering}>Submit Answer</button>
-                </form>
-            </div>
-        </Container>)
+                </div>
+                <button style={buttonStyle} type="submit" disabled={isAnswering}>Submit Answer</button>
+            </form>
+        </div>
+    </Container>)
 }

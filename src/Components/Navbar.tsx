@@ -21,7 +21,7 @@ export default function Navbar(props) {
         <LogoName/>
         <div className="links" style={linkContainer}>
             <button style={linkStyle} className="button" onClick={() => props.setOpen(o => !o)}>
-                <Link to="">Join</Link>
+                Join
             </button>
             <Link to="/authentication" className="button" style={linkStyle}>Login</Link>
         </div>

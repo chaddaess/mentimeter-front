@@ -59,19 +59,23 @@ export default function StartQuizPage() {
         };
     }, []);
 
+    function handleStartQuiz() {
+        socket.emit('sendQuestion', {quizCode: sessionCode, questionNumber: 0});
+    }
+
     return (<div style={startQuizStyle} className={"flow wrapper"}>
-        <h1>Join the Quiz!</h1>
-        <h2>Here's the code to share with your participants:</h2>
-        <p style={codeStyle}>{sessionCode}</p>
-        <div style={buttonContainerStyle}>
-            <Link to="/home"><Button>Cancel</Button></Link>
-            <Button>Start now</Button>
+            <h1>Join the Quiz!</h1>
+            <h2>Here's the code to share with your participants:</h2>
+            <p style={codeStyle}>{sessionCode}</p>
+            <div style={buttonContainerStyle}>
+                <Link to="/home"><Button>Cancel</Button></Link>
+                <Button onClick={handleStartQuiz}>Start now</Button>
+            </div>
+            <div style={participantBoardStyle}>
+                {participants.map((participant, index) => (<ParticipantCircle key={index} {...participant} />))}
+            </div>
         </div>
-        <div style={participantBoardStyle}>
-            {participants.map((participant, index) => (<ParticipantCircle key={index} {...participant} />))}
-        </div>
-    </div>
-    // TODO: when the user closes the popup, disconnect him and remove him from the board
-)
+        // TODO: when the user closes the popup, disconnect him and remove him from the board
+    )
 }
 

@@ -1,14 +1,17 @@
 import Navbar from "../Components/Navbar.tsx";
 import Popup from "reactjs-popup";
 import { FaRegCircleXmark } from "react-icons/fa6";
-import { CSSProperties, useState } from "react";
+import {CSSProperties, useEffect, useState} from "react";
 import EnterQuizCodeForm from "../Components/EnterQuizCodeForm.tsx";
 import Typewriter from 'typewriter-effect';
+import {socket} from "../socket";
+import {useNavigate} from "react-router";
 
 
 function WelcomePage() {
     const [open, setOpen] = useState(false);
     const closeModal = () => setOpen(false);
+    const navigate = useNavigate()
 
     const modalStyle: CSSProperties = {
         width: "60%",
@@ -62,7 +65,15 @@ function WelcomePage() {
         'Fun, Fast, and Full of Facts!',
         'Join the Fun – Start a Quiz <span style="color: #cd7f32">Now!</span>'
     ];
-
+     useEffect(() => {
+        socket.on('question', (data) => {
+            console.log(data)
+            navigate('/qspage', {
+            state: {payload: data}
+        })
+            // setParticipants((prevParticipants) => [...prevParticipants, newParticipant]);
+        });
+    }, []);
 
     return (
         <>
