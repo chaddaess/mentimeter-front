@@ -1,9 +1,9 @@
 import {CSSProperties, useEffect, useState} from "react";
-import {Button} from "./Component.tsx";
+import {Button} from "../Components/Component.tsx";
 import {socket} from "../socket";
 import {Link, useLocation} from "react-router-dom";
 
-export default function StartQuiz() {
+export default function StartQuizPage() {
     const location = useLocation();
     console.log(location)
     const sessionCode = location.state?.sessionCode || "N/A";

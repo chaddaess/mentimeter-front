@@ -3,18 +3,9 @@ import {socket} from '../socket.js'
 import {randomPseudo} from "../utils/pseudoGenerator.ts"
 import {Button} from "./Component.tsx";
 
-//styles
 const avatarStyle = {
     width: '65px', height: '65px', borderRadius: '50%', marginInline: "0.5rem"
 };
-// const buttonStyle = {
-//     width: "10em",
-//     height: "4em",
-//     borderRadius: "50px",
-//     marginTop: "1em",
-//     backgroundColor: "rgba(225,175,209,0.94)",
-//     cursor: "pointer"
-// }
 const inputStyle = {
     minHeight: "3em", borderRadius: "50px", border: "none", paddingInlineStart: "1em", marginBlock: "1em"
 }

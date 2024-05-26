@@ -19,7 +19,7 @@ export default function MainHomeBox(props) {
             })
     }, [email])
 
-    return (<div className="MainHomeBox flow">
+    return (<div className="flow">
         <h1 style={{color: "#6C0345"}}>
             Welcome back, {props.name} !
         </h1>

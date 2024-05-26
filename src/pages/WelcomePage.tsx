@@ -1,8 +1,8 @@
-import Navbar from "./Navbar.tsx";
+import Navbar from "../Components/Navbar.tsx";
 import Popup from "reactjs-popup";
 import { FaRegCircleXmark } from "react-icons/fa6";
 import { CSSProperties, useState } from "react";
-import EnterQuizCodeForm from "./EnterQuizCodeForm.tsx";
+import EnterQuizCodeForm from "../Components/EnterQuizCodeForm.tsx";
 import Typewriter from 'typewriter-effect';
 
 

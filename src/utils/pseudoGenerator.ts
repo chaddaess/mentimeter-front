@@ -41,6 +41,3 @@ function generateName() {
 }
 
 export const randomPseudo = generateName()
-    
-
-

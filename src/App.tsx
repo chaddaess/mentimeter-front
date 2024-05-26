@@ -5,11 +5,11 @@ import LogoutComponent from "./Components/LogoutComponent.tsx"
 import './App.css'
 import PrivateRoutes from "./Components/PrivateRoutes.tsx";
 import BuildQuiz from "./Components/BuildQuiz.tsx";
-import StartQuiz from "./Components/StartQuiz.tsx";
-import QuestionPage from './Components/QuestionPage.tsx';
+import StartQuizPage from "./pages/StartQuizPage.tsx";
+import QuestionPage from './pages/QuestionPage.tsx';
 import {useState} from "react";
-import WelcomePage from "./Components/WelcomePage.tsx";
-import Leaderboard from "./Components/Leaderboard.tsx";
+import WelcomePage from "./pages/WelcomePage.tsx";
+import LeaderboardPage from "./pages/LeaderboardPage.tsx";
 function App() {
     const [signIn, setSignIn] = useState(true);
     const toggleSignIn = () => setSignIn(!signIn);
@@ -23,9 +23,9 @@ function App() {
             </Route>
             <Route path="/logout" element={<LogoutComponent/>}/>
             <Route path="/authentication" element={<Authentification signIn={signIn} toggle={toggleSignIn}/>}/>
-            <Route path="/startquiz" Component={StartQuiz} />
+            <Route path="/startquiz" Component={StartQuizPage} />
             <Route path="/qspage" Component={QuestionPage} />
-            <Route path="leaderboard" element={<Leaderboard/>}></Route>
+            <Route path="leaderboard" element={<LeaderboardPage/>}></Route>
         </Routes>
     </BrowserRouter>);
 }
