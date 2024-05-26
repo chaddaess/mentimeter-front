@@ -86,13 +86,11 @@ export default function QuestionPage() {
         marginBottom: '1em',
     }
     const buttonStyle = {
-        marginTop: '5em',
-        backgroundColor: '#6C0345',
-        color: 'white',
+        marginTop: '5em', backgroundColor: '#6C0345', color: 'white',
     }
 
     return (
-        <>
+
 
             <Container>
                 <div>
@@ -121,12 +119,9 @@ export default function QuestionPage() {
                                     <label htmlFor="option3">Option 3</label>
                                 </div>
                             </div>
-                        </div>
-                        <button style={buttonStyle} type="submit">Submit Answer</button>
-                    </form>
-                </div>
-            </Container>
-        </>
-    )
-
+                    </div>
+                    <button style={buttonStyle} type="submit">Submit Answer</button>
+                </form>
+            </div>
+        </Container>)
 }
