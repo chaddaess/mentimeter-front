@@ -1,14 +1,13 @@
 import {CSSProperties, useEffect, useState} from "react";
 import {Button} from "./Component.tsx";
 import {socket} from "../socket";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 export default function StartQuiz() {
-    const [participants, setParticipants] = useState([{
-        avatarUrl: '/assets/chicken.png', pseudonym: 'kotkot'
-    }, {avatarUrl: '/assets/chicken.png', pseudonym: 'kotkot'}, {
-        avatarUrl: '/assets/chicken.png', pseudonym: 'kotkot'
-    },]);
+    const location = useLocation();
+    console.log(location)
+    const sessionCode = location.state?.sessionCode || "N/A";
+    const [participants, setParticipants] = useState([]);
 
     const avatarStyle = {
         width: "50px", height: "50px", borderRadius: " 50%", marginBottom: "0.5rem"
@@ -31,13 +30,14 @@ export default function StartQuiz() {
         marginTop: "2em"
     }
 
-    const ParticipantCircle = ({avatarUrl, pseudonym}) => (<div style={participantCircleStyle}>
-        <img src={avatarUrl} alt="Participant Avatar" style={avatarStyle}/>
-        <div className="pseudonym">{pseudonym}</div>
+    const ParticipantCircle = ({avatar, playerName}) => (<div style={participantCircleStyle}>
+        <img src={avatar} alt="Participant Avatar" style={avatarStyle}/>
+        <div className="pseudonym">{playerName}</div>
     </div>);
 
     useEffect(() => {
         socket.on('playerJoined', (newParticipant) => {
+            console.log(newParticipant)
             setParticipants((prevParticipants) => [...prevParticipants, newParticipant]);
         });
 
@@ -50,7 +50,7 @@ export default function StartQuiz() {
         <h1>Join the Quiz!</h1>
         <h2>Here's the code to share with your participants:</h2>
         {/*TODO: change this to be the real code*/}
-        <p>2869b39e-be82-4675-b77d-f9ba0c361c32</p>
+        <p>{sessionCode}</p>
         <div>
             <Button style={{marginRight: "1em"}}><Link to="/home">Cancel</Link></Button>
             <Button>Start now</Button>
