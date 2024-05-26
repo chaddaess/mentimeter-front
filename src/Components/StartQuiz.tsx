@@ -52,8 +52,8 @@ export default function StartQuiz() {
         {/*TODO: change this to be the real code*/}
         <p>2869b39e-be82-4675-b77d-f9ba0c361c32</p>
         <div>
-            <Button variant="contained" style={{marginRight: "1em"}}><Link to="/home">Cancel</Link></Button>
-            <Button variant="contained">Start now</Button>
+            <Button style={{marginRight: "1em"}}><Link to="/home">Cancel</Link></Button>
+            <Button>Start now</Button>
         </div>
         <div style={participantBoardStyle}>
             {participants.map((participant, index) => (<ParticipantCircle key={index} {...participant} />))}
