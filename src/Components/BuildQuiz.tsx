@@ -122,9 +122,7 @@ function BuildQuiz() {
     const location = useLocation();
     let quizName = location.state.quizName;
     const userinfo = JSON.parse(localStorage.getItem('loginInfo'))
-    const token = userinfo != null ? userinfo['access-token'] : "stranger"
-    const decoded = jwtDecode(token)
-    const email = decoded['email']
+    const email = userinfo['email']
     const navigate = useNavigate()
     const [topic, setTopic] = useState('');
     const [questions, setQuestions] = useState([{text: '', options: [''], validity: [false]}]);
