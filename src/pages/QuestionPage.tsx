@@ -2,6 +2,7 @@ import { socket } from '../socket.js'
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
+import {useLocation} from "react-router-dom";
 
 export default function QuestionPage() {
     const [isFirstTime, setIsFirstTime] = useState(true);
@@ -17,7 +18,10 @@ export default function QuestionPage() {
         setAnswerState(value);
     };
 
-    const code = "76fd0497-9680-4698-9b6d-c132dc895fdd";
+  const location = useLocation();
+    console.log(location)
+    const code = location.state?.payload.quizCode || "N/A";
+    console.log(code)
 
     const sendAnswer = (event) => {
         event.preventDefault();
