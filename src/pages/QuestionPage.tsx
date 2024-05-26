@@ -5,7 +5,6 @@ import {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
 
 export default function QuestionPage() {
-    const [isFirstTime, setIsFirstTime] = useState(true);
     const [questions, setQuestions] = useState([]);
     const [questionNumber, setQuestionNumber] = useState(0);
     const [answerState, setAnswerState] = useState("");
@@ -33,14 +32,10 @@ export default function QuestionPage() {
     }
 
     useEffect(() => {
-        if (isFirstTime) {
-            socket.emit("sendQuestion", {
-                quizCode: code,
-                questionNumber: 0
-            });
+        socket.emit("sendQuestion", {
+            quizCode: code, questionNumber: 0
+        });
 
-            setIsFirstTime(false);
-        }
 
         socket.on("question", (question) => {
             setIsAnswering(false)
@@ -60,10 +55,10 @@ export default function QuestionPage() {
         });
 
         socket.on("endQuiz", (payload) => {
-            localStorage.removeItem('name');
             navigate('/leaderboard', {
                 state: {payload: payload}
             });
+            // localStorage.removeItem('name');
         });
 
         return () => {
@@ -123,32 +118,32 @@ export default function QuestionPage() {
     }
 
     return (<Container>
-            <div>
-                <h2 style={{marginTop: '8%', marginBottom: '8%'}}>
-                    <span style={{color: "#6C0345"}}>Quiz</span>
-                    <span style={{color: "#DC6B19"}}>Up</span>
-                </h2>
-                <form onSubmit={sendAnswer}>
-                    <div>
-                        <p style={questionStyle}>{question}</p>
+        <div>
+            <h2 style={{marginTop: '8%', marginBottom: '8%'}}>
+                <span style={{color: "#6C0345"}}>Quiz</span>
+                <span style={{color: "#DC6B19"}}>Up</span>
+            </h2>
+            <form onSubmit={sendAnswer}>
+                <div>
+                    <p style={questionStyle}>{question}</p>
+                </div>
+                <div style={{display: 'flex', flexDirection: 'column'}}>
+                    <div style={{marginTop: '1em'}}>
+                        {options && options.map((option, index) => (
+                            <div key={index} style={{...optionStyle, borderColor: borderColors[index]}}>
+                                <input
+                                    type="radio"
+                                    id={`option${index}`}
+                                    name="answer"
+                                    value={option}
+                                    onChange={handleInputChange}
+                                />
+                                <label htmlFor={`option${index}`}>{option}</label>
+                            </div>))}
                     </div>
-                    <div style={{display: 'flex', flexDirection: 'column'}}>
-                        <div style={{marginTop: '1em'}}>
-                            {options && options.map((option, index) => (
-                                <div key={index} style={{...optionStyle, borderColor: borderColors[index]}}>
-                                    <input
-                                        type="radio"
-                                        id={`option${index}`}
-                                        name="answer"
-                                        value={option}
-                                        onChange={handleInputChange}
-                                    />
-                                    <label htmlFor={`option${index}`}>{option}</label>
-                                </div>))}
-                        </div>
-                    </div>
-                    <button style={buttonStyle} type="submit" disabled={isAnswering}>Submit Answer</button>
-                </form>
-            </div>
-        </Container>)
+                </div>
+                <button style={buttonStyle} type="submit" disabled={isAnswering}>Submit Answer</button>
+            </form>
+        </div>
+    </Container>)
 }
