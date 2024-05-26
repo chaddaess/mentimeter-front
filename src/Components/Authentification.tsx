@@ -11,6 +11,7 @@ const Authentification: FC<AuthentificationProps> = ({signIn, toggle}) => {
     const [inputDetails, setInputDetails] = useState([]);
     const [error, setError] = useState([]);
     const navigate = useNavigate()
+    console.log(localStorage)
     const handleInputChange = (event) => {
         const {name, value} = event.target;
         setInputDetails(prevState => ({

@@ -11,6 +11,10 @@ export default function sideBar() {
         padding: "1em",
         marginInlineEnd: "2.5em"
     }
+
+    const logoutFunction=()=>{
+        localStorage.clear()
+    }
     return (<aside className="side-bar" style={sideBarStyle}>
         <LogoName/>
         <nav style={{
@@ -18,7 +22,7 @@ export default function sideBar() {
         }}>
             <div><a>About us</a></div>
             <div><a>Help and support</a></div>
-            <Link to="/" className="btn">Logout</Link>
+            <Link to="/" className="btn" onClick={logoutFunction}>Logout</Link>
         </nav>
     </aside>)
 }
