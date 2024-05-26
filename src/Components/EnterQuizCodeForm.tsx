@@ -6,6 +6,10 @@ import {randomPseudo} from "../utils/pseudoGenerator.ts"
 const formStyle: CSSProperties = {
     display: "flex", flexDirection: "column", justifyContent: "flex-start"
 }
+const avatarStyle = {
+    width: '50px', height: '50px', borderRadius: '50%', marginBottom: '5px',
+};
+
 const buttonStyle = {
     width: "10em", height: "4em", borderRadius: "50px", marginTop: "1em", backgroundColor: "rgba(225,175,209,0.94)"
 }
@@ -27,20 +31,26 @@ const loadJoin: CSSProperties = {
 const pacStyle = {
     width: "3em", marginRight: "1em"
 }
-//functions
+
+const predefinedAvatars = ['https://robohash.org/1.png?set=set4', 'https://robohash.org/2.png?set=set4', 'https://robohash.org/3.png?set=set4', 'https://robohash.org/4.png?set=set4', 'https://robohash.org/5.png?set=set4', 'https://robohash.org/6.png?set=set4', 'https://robohash.org/7.png?set=set4', 'https://robohash.org/8.png?set=set4',];
+
 const QuizJoinForm = () => {
     const [quizCode, setQuizCode] = useState('');
     const [playerName, setPlayerName] = useState('');
-
+    const [selectedAvatar, setSelectedAvatar] = useState(predefinedAvatars[0]);
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        socket.on('connect', ()=>console.log('connected'));
-        socket.emit('joinQuiz', {"quizCode": quizCode, "playerName": playerName});
+        socket.on('connect', () => console.log('connected'));
+        socket.emit('joinQuiz', {"quizCode": quizCode, "playerName": playerName, "avatar": selectedAvatar});
         console.log(socket);
         console.log(playerName);
         console.log(quizCode);
     }
+
+    const handleAvatarSelect = (avatarUrl) => {
+        setSelectedAvatar(avatarUrl);
+    };
 
     useEffect(() => {
         socket.on("errorMsg", () => {
@@ -67,7 +77,6 @@ const QuizJoinForm = () => {
 
     })
 
-
     return (<form onSubmit={handleSubmit} style={formStyle}>
         <div style={inputGroupStyle}>
             <label style={labelStyle}>Quiz code </label>
@@ -91,6 +100,18 @@ const QuizJoinForm = () => {
         </div>
         <div className={"errorJoining"} style={errorStyle}>
             Ooopsie! looks like this quiz doesn't exist !
+        </div>
+        <div>
+            <h2>Select an Avatar</h2>
+            <div style={{display: 'flex', justifyContent: 'center', marginBottom: '20px'}}>
+                {predefinedAvatars.map((avatarUrl, index) => (<img
+                    key={index}
+                    src={avatarUrl}
+                    alt={`Avatar ${index}`}
+                    style={{...avatarStyle, border: avatarUrl === selectedAvatar ? '2px solid blue' : 'none'}}
+                    onClick={() => handleAvatarSelect(avatarUrl)}
+                />))}
+            </div>
         </div>
         <div className={"successJoining"} style={loadJoin}>
             Buckle up! joining quiz ..
