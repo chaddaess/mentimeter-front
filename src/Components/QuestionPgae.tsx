@@ -8,6 +8,7 @@ import {useState} from "react";
 export default function QuestionPage() {
     const [isFirstTime, setIsFirstTime] = useState(true);
     const [questionNumber,setQuestionNumber]=useState(0);
+    const [isAnswering,setIsAnswering]=useState(false);
     const navigate = useNavigate()
     const Container = styled.div`
         background-color: #fff;
@@ -22,9 +23,10 @@ export default function QuestionPage() {
         min-height: 400px;
     `;
     //TODO: set this code dynamically from when the user clicks "join" in main page
-    const code = "9218cc53-f6b5-47e8-a72d-c6b0fc8ee100"
+    const code = "136fbd90-2a2b-4f1b-804c-5adb7009c8b0"
     const sendAnswer = (event) => {
         event.preventDefault();
+        setIsAnswering(true)
         socket.emit("getAnswer",
             {
                 quizCode: code,
@@ -50,8 +52,20 @@ export default function QuestionPage() {
         setIsFirstTime(false)
     }
     socket.on("question", (question) => {
+        setIsAnswering(false)
         setQuestionNumber(question.questionNumber)
         console.log(question)
+        const questionTimer = setTimeout(() => {
+            if (!isAnswering) {
+                socket.emit("getAnswer", {
+                    quizCode: code,
+                    answer: "",
+                    questionNumber: questionNumber,
+                    playerPseudo: "chadda"
+                });
+            }
+        },10000);
+        return () => clearTimeout(questionTimer);
     })
 
     socket.on("endQuiz", (payload) => {
@@ -86,7 +100,10 @@ export default function QuestionPage() {
         marginBottom: '1em',
     }
     const buttonStyle = {
-        marginTop: '5em', backgroundColor: '#6C0345', color: 'white',
+        marginTop: '5em',
+        backgroundColor: '#6C0345',
+        color: 'white',
+        cursor: isAnswering ? 'not-allowed' : 'pointer',
     }
 
     return (
@@ -120,7 +137,7 @@ export default function QuestionPage() {
                                 </div>
                             </div>
                     </div>
-                    <button style={buttonStyle} type="submit">Submit Answer</button>
+                    <button style={buttonStyle} type="submit" disabled={isAnswering}>Submit Answer</button>
                 </form>
             </div>
         </Container>)
