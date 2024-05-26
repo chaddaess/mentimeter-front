@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {useNavigate} from "react-router";
 import { useLocation } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode'
 
 export const Topics = {
   ANIMALS: 'animals',
@@ -144,7 +145,11 @@ h1 {
 
 function BuildQuiz() {
   const location = useLocation();
-  const quizName = location.state.quizName;
+  let quizName = location.state.quizName;
+  const userinfo = JSON.parse(localStorage.getItem('loginInfo'))
+  var token = userinfo != null ? userinfo['access-token'] : "stranger"
+  var decoded = jwtDecode(token)
+  const email = decoded['email']
   const navigate = useNavigate()
   const [topic, setTopic] = useState('');
   const [questions, setQuestions] = useState([{ text: '', options: [''], validity: [false] }]);
@@ -197,9 +202,12 @@ function BuildQuiz() {
 
 
   const handleSubmit = () => {
+    if (quizName ===""){
+      quizName = "Untitled Quiz-"+topic;
+    }
     const quizData = {
       name: quizName,
-      user: null,
+      userEmail: email,
       code: null,
       topic: topic,
       questions: questions.map(question => ({
