@@ -77,6 +77,7 @@ export const Button = styled.button`
     letter-spacing: 1px;
     text-transform: uppercase;
     transition: transform 80ms ease-in;
+    cursor: pointer;
 
     &:active {
         transform: scale(0.95);
@@ -84,6 +85,11 @@ export const Button = styled.button`
 
     &:focus {
         outline: none;
+    }
+
+    &:hover {
+        background-color: #ffffff;
+        color: #ff4b2b;
     }
 `;
 

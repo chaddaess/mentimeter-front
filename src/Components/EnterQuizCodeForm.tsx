@@ -1,19 +1,20 @@
 import {CSSProperties, useEffect, useState} from 'react';
 import {socket} from '../socket.js'
 import {randomPseudo} from "../utils/pseudoGenerator.ts"
+import {Button} from "./Component.tsx";
 
 //styles
 const avatarStyle = {
     width: '65px', height: '65px', borderRadius: '50%', marginInline: "0.5rem"
 };
-const buttonStyle = {
-    width: "10em",
-    height: "4em",
-    borderRadius: "50px",
-    marginTop: "1em",
-    backgroundColor: "rgba(225,175,209,0.94)",
-    cursor: "pointer"
-}
+// const buttonStyle = {
+//     width: "10em",
+//     height: "4em",
+//     borderRadius: "50px",
+//     marginTop: "1em",
+//     backgroundColor: "rgba(225,175,209,0.94)",
+//     cursor: "pointer"
+// }
 const inputStyle = {
     minHeight: "3em", borderRadius: "50px", border: "none", paddingInlineStart: "1em", marginBlock: "1em"
 }
@@ -39,14 +40,12 @@ const QuizJoinForm = () => {
     const [quizCode, setQuizCode] = useState('');
     const [playerName, setPlayerName] = useState('');
     const [selectedAvatar, setSelectedAvatar] = useState(predefinedAvatars[0]);
-
+    const [hasJoined, setHasJoined] = useState(false);
     const handleSubmit = (event) => {
         event.preventDefault()
         socket.on('connect', () => console.log('connected'));
         socket.emit('joinQuiz', {"quizCode": quizCode, "playerName": playerName, "avatar": selectedAvatar});
-        console.log(socket);
-        console.log(playerName);
-        console.log(quizCode);
+        setHasJoined(true); // Disable the button after joining
     }
 
     const handleAvatarSelect = (avatarUrl) => {
@@ -108,7 +107,10 @@ const QuizJoinForm = () => {
             Buckle up! joining quiz ..
             <img src="/assets/loader.gif" alt="loader" style={pacStyle}/>
         </div>
-        <button type="submit" style={buttonStyle}>Join Quiz</button>
+        {/*<button type="submit" style={buttonStyle}>Join Quiz</button>*/}
+        <Button type="submit" disabled={hasJoined} onClick={handleSubmit}>
+            {hasJoined ? 'Joined' : 'Join now'}
+        </Button>
     </form>);
 };
 

@@ -9,10 +9,10 @@ export default function QuizBox(props) {
     const navigate = useNavigate();
 
     const mainQuizBoxStyle: CSSProperties = {
-        borderRadius: "6px",
+        borderRadius: "0.5em",
+        fontWeight: "bold",
         border: "1px solid #D3D3D3",
-        width: "20em",
-        height: "14em",
+        minHeight: "14em",
         transition: 'box-shadow 0.3s ease',
         boxShadow: isHovered ? ' 0 0 11px rgba(33,33,33,.2)' : 'none',
         backgroundImage: 'url("/assets/question-marks.jpg")',
@@ -43,15 +43,15 @@ export default function QuizBox(props) {
         };
     }, [navigate]);
 
-    return (<div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+    return (<article className="flow">
         <div style={mainQuizBoxStyle}
              onMouseEnter={() => setIsHovered(true)}
              onMouseLeave={() => setIsHovered(false)}
         >
             <p style={{fontSize: "1.5rem"}}>{props.quiz.name}</p>
         </div>
-        <Button style={{marginTop: "1em"}} onClick={handleButtonClick}>
+        <Button onClick={handleButtonClick}>
             Start Quiz
         </Button>
-    </div>)
+    </article>)
 }
