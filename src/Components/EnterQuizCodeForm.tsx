@@ -1,6 +1,7 @@
 import {CSSProperties, useEffect, useState} from 'react';
 import {socket} from '../socket.js';
 import {randomPseudo} from "../utils/pseudoGenerator.ts";
+import {Button} from "./Component.tsx";
 
 //styles
 const avatarStyle = {
@@ -39,12 +40,16 @@ const QuizJoinForm = ({sessionCode = ''}) => {
     const [quizCode, setQuizCode] = useState(sessionCode);
     const [playerName, setPlayerName] = useState('');
     const [selectedAvatar, setSelectedAvatar] = useState(predefinedAvatars[0]);
-
+    const [hasJoined, setHasJoined] = useState(false);
     const handleSubmit = (event) => {
+        event.preventDefault();
         event.preventDefault();
         socket.on('connect', () => console.log('connected'));
         socket.emit('joinQuiz', {"quizCode": quizCode, "playerName": playerName, "avatar": selectedAvatar});
-    };
+        localStorage.setItem('name', playerName);
+        console.log(playerName);
+        setHasJoined(true); // Disable the button after joining
+    }
 
     const handleAvatarSelect = (avatarUrl) => {
         setSelectedAvatar(avatarUrl);
@@ -109,6 +114,10 @@ const QuizJoinForm = ({sessionCode = ''}) => {
                 <img src="/assets/loader.gif" alt="loader" style={pacStyle}/>
             </div>
             <button type="submit" style={buttonStyle}>Join Quiz</button>
+            {/*<button type="submit" style={buttonStyle}>Join Quiz</button>*/}
+        <Button type="submit" disabled={hasJoined} onClick={handleSubmit}>
+            {hasJoined ? 'Joined' : 'Join now'}
+        </Button>
         </form>
     );
 };
