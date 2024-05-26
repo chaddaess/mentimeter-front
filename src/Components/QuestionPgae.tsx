@@ -17,20 +17,8 @@ export default function QuestionPage() {
         setAnswerState(value); // to update the answer with the selected one from the form
     };
 
-    const Container = styled.div`
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-        position: relative;
-        overflow: hidden;
-        top: 10%;
-        width: 500px;
-        height: 600px;
-        max-width: 100%;
-        min-height: 400px;
-    `;
     //TODO: set this code dynamically from when the user clicks "join" in main page
-    const code = "587694e2-025b-46a1-afff-4ca654248405"
+    const code = "0907dc6d-f913-4ae2-bd5c-3f17af2c281a"
     const sendAnswer = (event) => {
         event.preventDefault();
         socket.emit("getAnswer",
@@ -58,7 +46,7 @@ export default function QuestionPage() {
         setIsFirstTime(false)
     }
     socket.on("question", (question) => {
-        setQuestions((prevQuestions) => [...prevQuestions, question]);
+        setQuestions((prevQuestions) => [...prevQuestions, question]); 
         setQuestionNumber(question.questionNumber);
         console.log(question);
     })
@@ -74,6 +62,7 @@ export default function QuestionPage() {
     })
     const currentQuestion = questions[questionNumber] || {};
     const { question, options } = currentQuestion.question || {};
+    console.log(question);
 
     function getRandomColor() {
         const min = 150; // Minimum value for r, g, b to ensure lighter shades
@@ -86,6 +75,22 @@ export default function QuestionPage() {
 
     const borderColors = [getRandomColor(), getRandomColor(), getRandomColor()];
 
+    
+    const Container = styled.div`
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+        position: relative;
+        margin: auto;
+        margin-top: 2%;
+        overflow: hidden;
+        top: 10%;
+        width: 500px;
+        height: 600px;
+        max-width: 100%;
+        min-height: 400px;
+    `;
+
     const optionStyle = {
         border: '2px solid ',
         padding: '1em',
@@ -97,7 +102,10 @@ export default function QuestionPage() {
         marginBottom: '1em',
     }
     const buttonStyle = {
-        marginTop: '5em', backgroundColor: '#6C0345', color: 'white',
+        marginTop: '5em',
+        backgroundColor: '#6C0345', 
+        color: 'white',
+        borderRadius: '5px',
     }
     const questionStyle={
         fontSize: '1.5em'
