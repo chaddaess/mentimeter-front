@@ -1,6 +1,6 @@
 import Popup from 'reactjs-popup';
 import {FaPlusCircle} from "react-icons/fa";
-import {useState} from "react";
+import {CSSProperties, useState} from "react";
 import { FaRegCircleXmark } from "react-icons/fa6";
 import CreateQuizForm from "./CreateQuizForm.tsx";
 
@@ -13,7 +13,7 @@ export default function CreateQuizPopup(){
         borderRadius:"50px ",
         fontSize:"1.1rem"
     }
-    const modalStyle={
+    const modalStyle : CSSProperties ={
         width:"60%",
         height: "auto",
         backgroundColor:"#F6F5F2",
@@ -29,7 +29,7 @@ export default function CreateQuizPopup(){
 
 
     }
-    const overlayStyle = {
+    const overlayStyle : CSSProperties = {
         position: "fixed",
         top: 0,
         left: 0,

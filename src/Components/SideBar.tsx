@@ -1,7 +1,8 @@
-import Logo from "./Logo.tsx";
 import {Link} from "react-router-dom";
+import LogoName from "./LogoName.tsx";
+import {CSSProperties} from "react";
 export default function sideBar(){
-    const sideBarStyle={
+    const sideBarStyle : CSSProperties={
         display:'flex',
         flexDirection:"column",
         alignItems:'flex-start',
@@ -19,14 +20,7 @@ export default function sideBar(){
     return(
         <>
             <div className="side-bar" style={sideBarStyle}>
-                <div style={{display:"flex",alignItems:"center"}}>
-                    <Logo/>
-                    <h2 style={{fontSize:"2.5rem"}}>
-                        <span style={{color:"#6C0345"}}>Quiz</span>
-                        <span style={{color:"#DC6B19"}}>Up</span>
-                    </h2>
-
-                </div>
+               <LogoName/>
                 <div style={{display:"flex",flexDirection:"column",justifyContent:"flex-end",alignItems:'flex-start',paddingBottom:"1em"}}>
                     <div style={sideBarElementStyle}><a>About us</a></div>
                     <div style={sideBarElementStyle}><a>Help and support</a></div>

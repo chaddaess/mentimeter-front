@@ -15,7 +15,7 @@ export default function QuestionPage(){
           socket.emit("getQuestion", { quizCode: quizCode, questionNumber: currentQuestionIndex });
       });
 
-      socket.on("question", () => {
+      socket.on("question", (question) => {
           console.log("Received question");
           // setQuestions((prevQuestions) => [...prevQuestions, question]);
       });
@@ -50,6 +50,19 @@ export default function QuestionPage(){
     max-width: 100%;
     min-height: 400px;
     `;
+
+    useEffect(() => {
+        socket.on("endQuiz", (payload) => {
+            console.log("quiz ended")
+            navigate(
+                '/leaderboard',
+                {
+                    state:{payload:payload}
+                }
+            )
+        })
+    })
+
     function getRandomColor() {
         const min = 150; // Minimum value for r, g, b to ensure lighter shades
         const max = 256; // Maximum value for r, g, b to ensure pastel shades

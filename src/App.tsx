@@ -1,39 +1,28 @@
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import Home from "./Components/Home.tsx";
-import Test from "./Components/Test.tsx";
 import Authentification from './Components/Authentification.tsx';
 import LogoutComponent from "./Components/LogoutComponent.tsx"
-import React from "react";
-
 import './App.css'
 import PrivateRoutes from "./Components/PrivateRoutes.tsx";
 import BuildQuiz from "./Components/BuildQuiz.tsx";
 import StartQuiz from "./Components/StartQuiz.tsx";
 import QuestionPage from './Components/QuestionPgae.tsx';
-
+import {useState} from "react";
+import WelcomePage from "./Components/WelcomePage.tsx";
+import Leaderboard from "./Components/Leaderboard.tsx";
 function App() {
-    const [signIn, toggle] = React.useState(true);
-  return (
-    <BrowserRouter>
+    const [signIn, setSignIn] = useState(true);
+    const toggleSignIn = () => setSignIn(!signIn);
+
+    return (<BrowserRouter>
         <Routes>
+            <Route path="/" element={<WelcomePage/>}/>
             <Route element={<PrivateRoutes/>}>
-                <Route path="/" element={<Home/>}></Route>
-                <Route path='/build' element={<BuildQuiz/>}></Route>
-            <Route path="test" element={<Test/>}></Route>
+                <Route path="/home" element={<Home/>}/>
+                <Route path="/build" element={<BuildQuiz/>}/>
             </Route>
-            <Route path="/logout"
-                  element={
-                    <LogoutComponent/>
-                  }
-            >
-            </Route>
-            <Route path="authentication" element={
-                <Authentification
-                    signIn={signIn}
-                    toggle={toggle}
-                />
-            }>
-            </Route>
+            <Route path="/logout" element={<LogoutComponent/>}/>
+            <Route path="/authentication" element={<Authentification signIn={signIn} toggle={toggleSignIn}/>}/>
             <Route path="/startquiz" Component={StartQuiz} />
             <Route path="qspage" element={
                 <QuestionPage/>
@@ -42,9 +31,7 @@ function App() {
 
 
         </Routes>
-
-
-    </BrowserRouter>
-    )
+    </BrowserRouter>);
 }
+
 export default App;
