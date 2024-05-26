@@ -1,6 +1,7 @@
 import {CSSProperties, useEffect, useState} from "react";
 import {Button} from "./Component.tsx";
 import {socket} from "../socket";
+import {Link} from "react-router-dom";
 
 export default function StartQuiz() {
     const [participants, setParticipants] = useState([{
@@ -23,8 +24,7 @@ export default function StartQuiz() {
     const participantBoardStyle: CSSProperties = {
         backgroundColor: "#eeeeee",
         borderRadius: '5%',
-        width: "90vw",
-        height: "90vh",
+        minHeight: "50vh",
         display: "flex",
         flexWrap: "wrap",
         boxShadow: "0 0 10px rgba(0, 0, 0, 0.3)",
@@ -46,12 +46,15 @@ export default function StartQuiz() {
         };
     }, []);
 
-    return (<div style={startQuizStyle}>
+    return (<div style={startQuizStyle} className={"flow wrapper"}>
         <h1>Join the Quiz!</h1>
-        <p>Here's the code to share with your participants:</p>
-        <Button variant="contained">kotkotkot</Button>
-        <Button variant="contained">Start now</Button>
-
+        <h2>Here's the code to share with your participants:</h2>
+        {/*TODO: change this to be the real code*/}
+        <p>2869b39e-be82-4675-b77d-f9ba0c361c32</p>
+        <div>
+            <Button variant="contained" style={{marginRight: "1em"}}><Link to="/home">Cancel</Link></Button>
+            <Button variant="contained">Start now</Button>
+        </div>
         <div style={participantBoardStyle}>
             {participants.map((participant, index) => (<ParticipantCircle key={index} {...participant} />))}
         </div>

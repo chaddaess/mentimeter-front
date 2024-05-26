@@ -70,7 +70,7 @@ const Authentification: FC<AuthentificationProps> = ({signIn, toggle}) => {
                         <Components.Input name="password" type='password' placeholder='Password'
                                           onChange={handleInputChange}/>
                         {/*<Components.Anchor href='#'>Forgot your password?</Components.Anchor>*/}
-                        <Components.Button>Sigin In</Components.Button>
+                        <Components.Button>Sign In</Components.Button>
                         {error && <Components.Paragraph>
                             <ul style={Components.errorStyle}>
                                 {error[0]}

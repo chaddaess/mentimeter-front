@@ -1,11 +1,11 @@
-import React from "react";
+import React, {CSSProperties} from "react";
 import {Button} from "./Component.tsx";
 import {socket} from '../socket.js'
 
 
 export default function  QuizBox(props){
     const [isHovered, setIsHovered] = React.useState(false);
-    const mainQuizBoxStyle={
+    const mainQuizBoxStyle:CSSProperties={
         borderRadius:"6px",
         border:"1px solid #D3D3D3",
         width:"20em",
@@ -30,7 +30,6 @@ export default function  QuizBox(props){
 
 
     return(
-        <>
             <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
                 <div style={mainQuizBoxStyle}
                      onMouseEnter={() => setIsHovered(true)}
@@ -45,6 +44,5 @@ export default function  QuizBox(props){
                     Start Quiz
                 </Button>
             </div>
-        </>
     )
 }
