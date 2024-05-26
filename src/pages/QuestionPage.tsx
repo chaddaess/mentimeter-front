@@ -36,7 +36,6 @@ export default function QuestionPage() {
             quizCode: code, questionNumber: 0
         });
 
-
         socket.on("question", (question) => {
             setIsAnswering(false)
             setQuestions((prevQuestions) => [...prevQuestions, question]);

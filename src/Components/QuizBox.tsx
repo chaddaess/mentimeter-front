@@ -25,7 +25,7 @@ export default function QuizBox(props) {
     const handleButtonClick = () => {
         const userinfo = JSON.parse(localStorage.getItem('loginInfo'))
         const payload = {
-            quiz: props.quiz, owner: userinfo
+            quiz: props.quiz.id, owner: userinfo.email
         }
         console.log(payload);
         socket.emit('createQuizSession', payload)
