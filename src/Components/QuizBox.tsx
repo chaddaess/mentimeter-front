@@ -1,7 +1,6 @@
 import React from "react";
 import {Button} from "./Component.tsx";
 import {socket} from '../socket.js'
-import * as url from "url";
 
 
 export default function  QuizBox(props){
