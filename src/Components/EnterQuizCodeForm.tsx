@@ -3,21 +3,22 @@ import {socket} from '../socket.js'
 import {randomPseudo} from "../utils/pseudoGenerator.ts"
 
 //styles
-const formStyle: CSSProperties = {
-    display: "flex", flexDirection: "column", justifyContent: "flex-start"
-}
 const avatarStyle = {
-    width: '50px', height: '50px', borderRadius: '50%', marginBottom: '5px',
+    width: '65px', height: '65px', borderRadius: '50%', marginInline: "0.5rem"
 };
-
 const buttonStyle = {
-    width: "10em", height: "4em", borderRadius: "50px", marginTop: "1em", backgroundColor: "rgba(225,175,209,0.94)"
+    width: "10em",
+    height: "4em",
+    borderRadius: "50px",
+    marginTop: "1em",
+    backgroundColor: "rgba(225,175,209,0.94)",
+    cursor: "pointer"
 }
 const inputStyle = {
-    width: "100%", height: "3em", borderRadius: "50px", border: "none", paddingLeft: "1em", margin: "1em 0"
+    minHeight: "3em", borderRadius: "50px", border: "none", paddingInlineStart: "1em", marginBlock: "1em"
 }
 const inputGroupStyle: CSSProperties = {
-    display: "flex", flexDirection: "column", justifyContent: "center",
+    display: "flex", flexDirection: "column", justifyContent: "center", marginBlockEnd: "1em"
 }
 const labelStyle = {
     marginLeft: "0.5em"
@@ -65,19 +66,9 @@ const QuizJoinForm = () => {
             error.style.display = "none"
             success.style.display = "flex";
         })
-        // socket.on("endQuiz", (payload) => {
-        //     console.log("quiz ended")
-        //     navigate(
-        //         '/leaderboard',
-        //         {
-        //             state:{payload:payload}
-        //         }
-        //     )
-        // })
-
     })
 
-    return (<form onSubmit={handleSubmit} style={formStyle}>
+    return (<form onSubmit={handleSubmit}>
         <div style={inputGroupStyle}>
             <label style={labelStyle}>Quiz code </label>
             <input
@@ -102,7 +93,7 @@ const QuizJoinForm = () => {
             Ooopsie! looks like this quiz doesn't exist !
         </div>
         <div>
-            <h2>Select an Avatar</h2>
+            <p style={labelStyle}>Select an Avatar</p>
             <div style={{display: 'flex', justifyContent: 'center', marginBottom: '20px'}}>
                 {predefinedAvatars.map((avatarUrl, index) => (<img
                     key={index}

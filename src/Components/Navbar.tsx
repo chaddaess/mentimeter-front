@@ -7,7 +7,8 @@ export default function Navbar(props) {
         backgroundColor: "rgba(229,228,226,0.58)",
         display: "flex",
         alignItems: "center",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        padding: "0.5em"
     }
     const linkContainer = {
         display: "flex", justifyContent: "center", gap: "1em"

@@ -18,7 +18,7 @@ export default function sideBar() {
         }}>
             <div><a>About us</a></div>
             <div><a>Help and support</a></div>
-            <Link to="/logout" className="btn">Logout</Link>
+            <Link to="/" className="btn">Logout</Link>
         </nav>
     </aside>)
 }
