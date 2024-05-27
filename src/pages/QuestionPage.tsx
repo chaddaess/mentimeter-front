@@ -39,6 +39,7 @@ export default function QuestionPage() {
         socket.on("question", (question) => {
             setIsAnswering(false)
             setQuestions((prevQuestions) => [...prevQuestions, question]);
+            console.log("questions", questions)
             setQuestionNumber(question.questionNumber);
             const questionTimer = setTimeout(() => {
                 if (!isAnswering) {
@@ -134,10 +135,10 @@ export default function QuestionPage() {
                                     type="radio"
                                     id={`option${index}`}
                                     name="answer"
-                                    value={option}
+                                    value={option.label}
                                     onChange={handleInputChange}
                                 />
-                                <label htmlFor={`option${index}`}>{option}</label>
+                                <label htmlFor={`option${index}`}>{option.label}</label>
                             </div>))}
                     </div>
                 </div>
