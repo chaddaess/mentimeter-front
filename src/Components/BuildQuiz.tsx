@@ -124,11 +124,11 @@ function BuildQuiz() {
     const email = userinfo['email']
     const navigate = useNavigate()
     const [topic, setTopic] = useState('');
-    const [questions, setQuestions] = useState([{text: '', options: [''], validity: [false]}]);
+    const [questions, setQuestions] = useState([{text: '', options: [''], validity: [false], correctAnswer: ''}]);
     const [errorMessage, setErrorMessage] = useState('');
 
     const addQuestion = () => {
-        setQuestions([...questions, {text: '', options: [''], validity: [false]}]);
+        setQuestions([...questions, {text: '', options: [''], validity: [false], correctAnswer: ''}]);
     };
 
     const handleQuestionChange = (index, event) => {
@@ -146,6 +146,15 @@ function BuildQuiz() {
     const handleValidityChange = (questionIndex, optionIndex) => {
         const newQuestions = [...questions];
         newQuestions[questionIndex].validity[optionIndex] = !newQuestions[questionIndex].validity[optionIndex];
+        if (newQuestions[questionIndex].validity[optionIndex]) {
+            newQuestions[questionIndex].validity = newQuestions[questionIndex].validity.map((value, index) => {
+                if (index !== optionIndex) {
+                    return false;
+                }
+                return value;
+            });
+        }
+
         setQuestions(newQuestions);
     };
 
@@ -186,14 +195,17 @@ function BuildQuiz() {
         if (quizName === "") {
             quizName = "Untitled Quiz-" + topic;
         }
+        questions.map(question => {
+            question.correctAnswer = question.options[question.validity.indexOf(true)];
+        });
         const quizData = {
             name: quizName, userEmail: email, code: null, topic: topic, questions: questions.map(question => ({
                 question: question.text, options: question.options.map((option, index) => ({
                     label: option, isCorrect: question.validity[index]
-                }))
+                })),correctAnswer: question.correctAnswer
             }))
         };
-        //console.log(quizData);
+        console.log(quizData);
 
         fetch('http://localhost:3000/quizzes', {
             method: 'POST', headers: {
