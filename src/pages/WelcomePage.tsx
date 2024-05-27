@@ -5,13 +5,15 @@ import {CSSProperties, useEffect, useState} from "react";
 import EnterQuizCodeForm from "../Components/EnterQuizCodeForm.tsx";
 import Typewriter from 'typewriter-effect';
 import {socket} from "../socket";
-import {useNavigate} from "react-router";
+import {useLocation, useNavigate} from "react-router";
 
 
 function WelcomePage() {
     const [open, setOpen] = useState(false);
+    const [sessionCode, setSessionCode] = useState('');
     const closeModal = () => setOpen(false);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const modalStyle: CSSProperties = {
         width: "60%",
@@ -65,29 +67,32 @@ function WelcomePage() {
         'Fun, Fast, and Full of Facts!',
         'Join the Fun – Start a Quiz <span style="color: #cd7f32">Now!</span>'
     ];
-     useEffect(() => {
+    useEffect(() => {
         socket.on('question', (data) => {
-            console.log(data)
-            navigate('/qspage', {
-            state: {payload: data}
-        })
-            // setParticipants((prevParticipants) => [...prevParticipants, newParticipant]);
+            navigate('/qspage', { state: { payload: data } });
         });
-    }, []);
+
+        const params = new URLSearchParams(location.search);
+        const code = params.get('sessionCode');
+        if (code) {
+            setSessionCode(code);
+            setOpen(true);
+        }
+    }, [location.search]);
 
     return (
         <>
-            <Navbar open={open} setOpen={setOpen} />
+           <Navbar open={open} setOpen={setOpen} />
             {open && <div style={overlayStyle} onClick={closeModal}></div>}
             <Popup
                 open={open}
                 closeOnDocumentClick
-                onClose={closeModal} >
+                onClose={closeModal}>
                 <div className="modal" style={modalStyle}>
                     <a className="close" onClick={closeModal}>
                         <FaRegCircleXmark style={{ height: "1.5em", width: "1.5em", alignSelf: "flex-end" }} />
                     </a>
-                    <EnterQuizCodeForm />
+                    <EnterQuizCodeForm sessionCode={sessionCode} />
                 </div>
             </Popup>
             <div className="welcome-container" style={containerStyle}>

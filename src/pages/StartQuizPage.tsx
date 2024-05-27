@@ -2,6 +2,7 @@ import {CSSProperties, useEffect, useState} from "react";
 import {Button} from "../Components/Component.tsx";
 import {socket} from "../socket";
 import {Link, useLocation} from "react-router-dom";
+import QRCode from 'qrcode.react';
 
 export default function StartQuizPage() {
     const location = useLocation();
@@ -62,11 +63,13 @@ export default function StartQuizPage() {
     function handleStartQuiz() {
         socket.emit('sendQuestion', {quizCode: sessionCode, questionNumber: 0});
     }
+    const joinQuizUrl = `${window.location.origin}?sessionCode=${sessionCode}`;
 
     return (<div style={startQuizStyle} className={"flow wrapper"}>
             <h1>Join the Quiz!</h1>
             <h2>Here's the code to share with your participants:</h2>
             <p style={codeStyle}>{sessionCode}</p>
+            <QRCode value={joinQuizUrl} />
             <div style={buttonContainerStyle}>
                 <Link to="/home"><Button>Cancel</Button></Link>
                 <Button onClick={handleStartQuiz}>Start now</Button>

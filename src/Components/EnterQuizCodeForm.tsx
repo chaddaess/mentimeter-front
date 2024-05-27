@@ -25,10 +25,10 @@ const pacStyle = {
     width: "3em", marginRight: "1em"
 }
 
-const predefinedAvatars = ['https://robohash.org/1.png?set=set4', 'https://robohash.org/2.png?set=set4', 'https://robohash.org/3.png?set=set4', 'https://robohash.org/4.png?set=set4', 'https://robohash.org/5.png?set=set4', 'https://robohash.org/6.png?set=set4', 'https://robohash.org/7.png?set=set4', 'https://robohash.org/8.png?set=set4',];
+const predefinedAvatars = ['https://robohash.org/1.png?set=set4', 'https://robohash.org/2.png?set=set4', 'https://robohash.org/3.png?set=set4', 'https://robohash.org/4.png?set=set4', 'https://robohash.org/5.png?set=set4', 'https://robohash.org/6.png?set=set4', 'https://robohash.org/7.png?set=set4', 'https://robohash.org/8.png?set=set4','https://cdn.icon-icons.com/icons2/1371/PNG/512/cristianoronaldo_90805.png'];
 
-const QuizJoinForm = () => {
-    const [quizCode, setQuizCode] = useState('');
+const QuizJoinForm = ({sessionCode = ''}) => {
+    const [quizCode, setQuizCode] = useState(sessionCode);
     const [playerName, setPlayerName] = useState('');
     const [selectedAvatar, setSelectedAvatar] = useState(predefinedAvatars[0]);
     const [hasJoined, setHasJoined] = useState(false);
