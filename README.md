@@ -1,4 +1,6 @@
-# React + TypeScript + Vite
+# Real-Time Quiz App Frontend
+
+This repository contains the frontend for a real-time quiz application built with React. The frontend allows users to create quizzes, join quiz sessions, and participate in real-time quiz interactions.
 
 
 1. Clone this project
